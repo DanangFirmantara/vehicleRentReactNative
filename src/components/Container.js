@@ -7,8 +7,7 @@ const Container = ({children}) => {
 
 const styles = StyleSheet.create({
   parent: {
-    marginHorizontal: 15,
-    marginVertical: 15,
+    flex: 1,
   },
 });
 

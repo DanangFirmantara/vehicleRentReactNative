@@ -1,58 +1,88 @@
 import {
   View,
   Text,
+  ImageBackground,
   StyleSheet,
   TouchableOpacity,
-  ImageBackground,
 } from 'react-native';
 import React from 'react';
-import Container from '../components/Container';
+import imgBackground from '../assets/image/login.png';
+import Input from '../components/Input';
+import ButtonForm from '../components/ButtonForm';
 import {useNavigation} from '@react-navigation/native';
-import loginImg from '../assets/image/login.png';
 
 const Login = () => {
   const navigation = useNavigation();
   return (
-    <ImageBackground source={loginImg} style={styles.imageBackground}>
-      <Container>
-        <View style={styles.contentTop}>
-          <Text style={styles.text}>LET’S EXPLORE THE WORLD</Text>
+    <View style={styles.container}>
+      <ImageBackground
+        source={imgBackground}
+        resizeMode="cover"
+        style={styles.image}>
+        <View>
+          <Text style={styles.textBar}>LET&lsquo;S EXPLORE THE WORLD</Text>
         </View>
+        <View style={styles.gap} />
+        <View>
+          <Input>Username</Input>
+        </View>
+        <View>
+          <Input>Password</Input>
+        </View>
+        <TouchableOpacity onPress={() => navigation.navigate('Reset-Password')}>
+          <Text style={styles.textNavigate}>Forgot Password</Text>
+        </TouchableOpacity>
+        <ButtonForm>Login</ButtonForm>
+        <ButtonForm color="white" google>
+          Sign Up With Google
+        </ButtonForm>
         <View style={styles.content}>
-          <Text>Login</Text>
+          <Text style={styles.text}>Don’t have account?</Text>
           <TouchableOpacity
-            onPress={() => {
-              navigation.navigate('Sign-Up');
-            }}>
-            <Text>Sign Up</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate('Reset-Password');
-            }}>
-            <Text>Reset Password</Text>
+            style={styles.textNavigate}
+            onPress={() => navigation.navigate('Sign-Up')}>
+            <Text style={styles.textNavigate}>Sign up now</Text>
           </TouchableOpacity>
         </View>
-      </Container>
-    </ImageBackground>
+      </ImageBackground>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  contentTop: {
-    // paddingTop: 100,
+  container: {
+    flex: 1,
+  },
+  image: {
+    flex: 1,
+    paddingHorizontal: 10,
+    paddingVertical: 20,
+  },
+  textBar: {
+    color: 'white',
+    fontSize: 40,
+    fontWeight: 'bold',
+    width: '90%',
   },
   text: {
     color: 'white',
-    fontSize: 36,
-    fontWeight: 'bold',
-    width: '80%',
+    textAlign: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
-  content: {
-    height: '100%',
-    width: '100%',
+  textNavigate: {
+    marginHorizontal: 3,
     alignItems: 'center',
     justifyContent: 'center',
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  content: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  gap: {
+    flex: 1,
   },
 });
 
