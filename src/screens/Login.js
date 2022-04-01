@@ -5,14 +5,23 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import imgBackground from '../assets/image/login.png';
-import Input from '../components/Input';
 import ButtonForm from '../components/ButtonForm';
 import {useNavigation} from '@react-navigation/native';
+import {Box, Button, Input} from 'native-base';
+import EntypoIcon from 'react-native-vector-icons/Entypo';
 
 const Login = () => {
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
+  const [show, setShow] = useState(false);
   const navigation = useNavigation();
+  const onLogin = () => {
+    console.log(username, 'ini username');
+    console.log(password, 'ini password');
+  };
+  const handleClick = () => setShow(!show);
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -24,15 +33,58 @@ const Login = () => {
         </View>
         <View style={styles.gap} />
         <View>
-          <Input>Username</Input>
+          <Input
+            bg="rgba(223, 222, 222, 0.5)"
+            color="white"
+            variant="filled"
+            paddingLeft={5}
+            fontSize={12}
+            fontWeight="bold"
+            placeholder={'Username'}
+            placeholderTextColor="white"
+            onChangeText={text => setUsername(text)}
+          />
         </View>
         <View>
-          <Input>Password</Input>
+          <Input
+            bg="rgba(223, 222, 222, 0.5)"
+            color="white"
+            variant="filled"
+            paddingLeft={5}
+            fontSize={12}
+            fontWeight="bold"
+            marginY={2}
+            placeholder={'Password'}
+            placeholderTextColor="white"
+            onChangeText={text => setPassword(text)}
+            type={show ? 'text' : 'password'}
+            InputRightElement={
+              <Box marginRight={4}>
+                <EntypoIcon
+                  onPress={handleClick}
+                  name={show ? 'eye' : 'eye-with-line'}
+                  size={20}
+                  color="white"
+                />
+              </Box>
+            }
+          />
         </View>
         <TouchableOpacity onPress={() => navigation.navigate('ResetPassword')}>
           <Text style={styles.textNavigate}>Forgot Password</Text>
         </TouchableOpacity>
-        <ButtonForm>Login</ButtonForm>
+        <Button
+          height={50}
+          bg={'rgba(255, 205, 97, 1)'}
+          color={'rgba(57, 57, 57, 1)'}
+          fontWeight="bold"
+          fontSize={18}
+          borderRadius={10}
+          marginY={2}
+          onPress={onLogin}>
+          Login
+        </Button>
+        {/* <ButtonForm>Login</ButtonForm> */}
         <ButtonForm color="white" google>
           Sign Up With Google
         </ButtonForm>
