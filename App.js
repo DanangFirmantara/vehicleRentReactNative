@@ -14,9 +14,12 @@ import Search from './src/screens/Search';
 import Chat from './src/screens/Chat';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IonIcon from 'react-native-vector-icons/Ionicons';
+import AddNewItem from './src/screens/AddNewItem';
+import BackItem from './src/components/BackItem';
 
 const StackAuth = createNativeStackNavigator();
 const TabMain = createBottomTabNavigator();
+const StackHome = createNativeStackNavigator();
 
 const Auth = () => {
   return (
@@ -47,8 +50,8 @@ const Main = () => {
     <NavigationContainer>
       <TabMain.Navigator>
         <TabMain.Screen
-          name="HomeAdmin"
-          component={HomeAdmin}
+          name="HomeStack"
+          component={HomeStack}
           options={{
             tabBarShowLabel: false,
             tabBarIcon: ({focused, color = 'rgba(255, 205, 97, 1)', size}) => (
@@ -89,6 +92,15 @@ const Main = () => {
         />
       </TabMain.Navigator>
     </NavigationContainer>
+  );
+};
+
+const HomeStack = () => {
+  return (
+    <StackHome.Navigator>
+      <StackHome.Screen name="HomeAdmin" component={HomeAdmin} />
+      <StackHome.Screen name="AddNewItem" component={AddNewItem} />
+    </StackHome.Navigator>
   );
 };
 

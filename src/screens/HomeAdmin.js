@@ -52,7 +52,8 @@ const HomeAdmin = () => {
 
         <ButtonForm
           color="rgba(57, 57, 57, 1)"
-          textColor="rgba(255, 205, 97, 1)">
+          textColor="rgba(255, 205, 97, 1)"
+          to={'AddNewItem'}>
           Add new item
         </ButtonForm>
       </Container>
