@@ -8,6 +8,7 @@ const Container = ({children}) => {
 const styles = StyleSheet.create({
   parent: {
     flex: 1,
+    paddingHorizontal: 20,
   },
 });
 
