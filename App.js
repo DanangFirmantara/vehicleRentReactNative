@@ -54,6 +54,7 @@ const Main = () => {
             tabBarIcon: ({focused, color = 'rgba(255, 205, 97, 1)', size}) => (
               <Icon name="home" size={size} color={color} />
             ),
+            headerShown: false,
           }}
         />
         <TabMain.Screen
