@@ -29,7 +29,7 @@ const Login = () => {
         <View>
           <Input>Password</Input>
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate('Reset-Password')}>
+        <TouchableOpacity onPress={() => navigation.navigate('ResetPassword')}>
           <Text style={styles.textNavigate}>Forgot Password</Text>
         </TouchableOpacity>
         <ButtonForm>Login</ButtonForm>
@@ -40,7 +40,7 @@ const Login = () => {
           <Text style={styles.text}>Don’t have account?</Text>
           <TouchableOpacity
             style={styles.textNavigate}
-            onPress={() => navigation.navigate('Sign-Up')}>
+            onPress={() => navigation.navigate('SignUp')}>
             <Text style={styles.textNavigate}>Sign up now</Text>
           </TouchableOpacity>
         </View>
