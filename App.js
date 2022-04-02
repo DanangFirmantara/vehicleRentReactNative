@@ -13,10 +13,25 @@ import Chat from './src/screens/Chat';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import AddNewItem from './src/screens/AddNewItem';
+import reduxStore from './src/redux/store';
+import {Provider, useSelector} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
+import UpdateProfile from './src/screens/UpdateProfile';
+import FAQ from './src/screens/FAQ';
+import Help from './src/screens/Help';
+import YourFavorite from './src/screens/YourFavorite';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import History from './src/screens/History';
+import Filter from './src/screens/Filter';
+import Detail from './src/screens/Detail';
 
 const StackAuth = createNativeStackNavigator();
 const TabMain = createBottomTabNavigator();
 const StackHome = createNativeStackNavigator();
+const StackProfile = createNativeStackNavigator();
+const ChatStack = createMaterialTopTabNavigator();
+const StackSearch = createNativeStackNavigator();
+const {store, persistor} = reduxStore();
 
 const Auth = () => {
    return (
@@ -60,9 +75,10 @@ const MainTab = () => {
                }}
             />
             <TabMain.Screen
-               name="Search"
-               component={Search}
+               name="SearchStack"
+               component={SearchStack}
                options={{
+                  headerShown: false,
                   tabBarShowLabel: false,
                   tabBarIcon: ({
                      focused,
@@ -113,8 +129,6 @@ const HomeStack = () => {
    );
 };
 
-const StackProfile = createNativeStackNavigator();
-
 const ProfileStack = () => {
    return (
       <StackProfile.Navigator>
@@ -127,14 +141,26 @@ const ProfileStack = () => {
    );
 };
 
-const ChatStack = createMaterialTopTabNavigator();
-
 const StackChat = () => {
    return (
       <ChatStack.Navigator>
          <ChatStack.Screen name="Chat" component={Chat} />
          <ChatStack.Screen name="History Order" component={History} />
       </ChatStack.Navigator>
+   );
+};
+
+const SearchStack = () => {
+   return (
+      <StackSearch.Navigator>
+         <StackSearch.Screen
+            options={{headerShown: false}}
+            name="Search"
+            component={Search}
+         />
+         <StackSearch.Screen name="Filter" component={Filter} />
+         <StackSearch.Screen name="Detail" component={Detail} />
+      </StackSearch.Navigator>
    );
 };
 
@@ -148,18 +174,6 @@ const Main = () => {
       </NativeBaseProvider>
    );
 };
-
-import reduxStore from './src/redux/store';
-import {Provider, useSelector} from 'react-redux';
-import {PersistGate} from 'redux-persist/integration/react';
-import UpdateProfile from './src/screens/UpdateProfile';
-import FAQ from './src/screens/FAQ';
-import Help from './src/screens/Help';
-import YourFavorite from './src/screens/YourFavorite';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import History from './src/screens/History';
-
-const {store, persistor} = reduxStore();
 
 const App = () => {
    return (

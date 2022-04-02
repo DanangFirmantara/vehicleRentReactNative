@@ -80,6 +80,7 @@ const History = () => {
             </Text>
             <FlatList
                data={data}
+               height={150}
                renderItem={({item}) => {
                   return (
                      <Pressable>
@@ -119,7 +120,7 @@ const History = () => {
                showsVerticalScrollIndicator={false}
                renderItem={({item}) => {
                   return (
-                     <Box my={4}>
+                     <Box my={2}>
                         <HStack alignItems={'center'} key={item.id}>
                            <Box mr={5}>
                               <Image

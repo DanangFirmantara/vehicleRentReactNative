@@ -9,9 +9,9 @@ import React, {useState} from 'react';
 import imgBackground from '../assets/image/login.png';
 import ButtonForm from '../components/ButtonForm';
 import {useNavigation} from '@react-navigation/native';
-import {Box, Button, Input} from 'native-base';
+import {Alert, Box, Button, HStack, Input} from 'native-base';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {doLogin} from '../redux/actions/auth';
 
 const Login = () => {
@@ -20,6 +20,7 @@ const Login = () => {
    const [show, setShow] = useState(false);
    const navigation = useNavigation();
    const dispatch = useDispatch();
+   const auth = useSelector(state => state.auth);
 
    const onLogin = () => {
       console.log(username, 'ini username');
@@ -37,6 +38,16 @@ const Login = () => {
                <Text style={styles.textBar}>LET&lsquo;S EXPLORE THE WORLD</Text>
             </View>
             <View style={styles.gap} />
+            {auth.isError && (
+               <Alert status={'error'} mb={4}>
+                  <HStack space={2} flexShrink={1} alignItems={'center'}>
+                     <Alert.Icon mt="1" />
+                     <Text fontSize="md" color="coolGray.800">
+                        {auth.errorMsg}
+                     </Text>
+                  </HStack>
+               </Alert>
+            )}
             <View>
                <Input
                   bg="rgba(223, 222, 222, 0.5)"
