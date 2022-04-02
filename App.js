@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -103,16 +102,18 @@ const HomeStack = () => {
 };
 
 const Main = () => {
+  const auth = useSelector(state => state.auth);
+
   return (
     <NativeBaseProvider>
-      <Auth />
-      {/* <MainTab /> */}
+      {auth.token === null && <Auth />}
+      {auth.token !== null && <MainTab />}
     </NativeBaseProvider>
   );
 };
 
 import reduxStore from './src/redux/store';
-import {Provider} from 'react-redux';
+import {Provider, useSelector} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 
 const {store, persistor} = reduxStore();

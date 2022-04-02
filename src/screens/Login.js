@@ -11,15 +11,19 @@ import ButtonForm from '../components/ButtonForm';
 import {useNavigation} from '@react-navigation/native';
 import {Box, Button, Input} from 'native-base';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
+import {useDispatch} from 'react-redux';
+import {doLogin} from '../redux/actions/auth';
 
 const Login = () => {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [show, setShow] = useState(false);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const onLogin = () => {
     console.log(username, 'ini username');
     console.log(password, 'ini password');
+    dispatch(doLogin(username, password));
   };
   const handleClick = () => setShow(!show);
   return (
@@ -64,7 +68,7 @@ const Login = () => {
                   onPress={handleClick}
                   name={show ? 'eye' : 'eye-with-line'}
                   size={20}
-                  color="white"
+                  color="grey"
                 />
               </Box>
             }
