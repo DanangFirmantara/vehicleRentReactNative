@@ -1,12 +1,10 @@
-/* eslint-disable no-unused-vars */
-import {View} from 'react-native';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Login from './src/screens/Login';
 import SignUp from './src/screens/SignUp';
 import ResetPassword from './src/screens/ResetPassword';
-import {NativeBaseProvider, Text, Box, Stack, Input, Center} from 'native-base';
+import {NativeBaseProvider} from 'native-base';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeAdmin from './src/screens/HomeAdmin';
 import Profile from './src/screens/Profile';
@@ -15,7 +13,6 @@ import Chat from './src/screens/Chat';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import AddNewItem from './src/screens/AddNewItem';
-import BackItem from './src/components/BackItem';
 
 const StackAuth = createNativeStackNavigator();
 const TabMain = createBottomTabNavigator();
@@ -45,7 +42,7 @@ const Auth = () => {
   );
 };
 
-const Main = () => {
+const MainTab = () => {
   return (
     <NavigationContainer>
       <TabMain.Navigator>
@@ -104,12 +101,30 @@ const HomeStack = () => {
   );
 };
 
-const App = () => {
+const Main = () => {
+  const auth = useSelector(state => state.auth);
+
   return (
     <NativeBaseProvider>
-      {/* <Auth /> */}
-      <Main />
+      {auth.token === null && <Auth />}
+      {auth.token !== null && <MainTab />}
     </NativeBaseProvider>
+  );
+};
+
+import reduxStore from './src/redux/store';
+import {Provider, useSelector} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
+
+const {store, persistor} = reduxStore();
+
+const App = () => {
+  return (
+    <Provider store={store}>
+      <PersistGate persistor={persistor} loading={null}>
+        <Main />
+      </PersistGate>
+    </Provider>
   );
 };
 
