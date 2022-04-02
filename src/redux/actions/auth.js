@@ -16,3 +16,11 @@ export const doLogin = (username, password) => {
     }
   };
 };
+
+export const doLogout = () => {
+  return dispatch => {
+    dispatch({
+      type: 'AUTH_LOGOUT',
+    });
+  };
+};

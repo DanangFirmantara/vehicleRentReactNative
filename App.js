@@ -78,9 +78,10 @@ const MainTab = () => {
           }}
         />
         <TabMain.Screen
-          name="Profile"
-          component={Profile}
+          name="ProfileStack"
+          component={ProfileStack}
           options={{
+            headerShown: false,
             tabBarShowLabel: false,
             tabBarIcon: ({focused, color = 'rgba(255, 205, 97, 1)', size}) => (
               <Icon name="user" size={size} color={color} />
@@ -101,6 +102,20 @@ const HomeStack = () => {
   );
 };
 
+const StackProfile = createNativeStackNavigator();
+
+const ProfileStack = () => {
+  return (
+    <StackProfile.Navigator>
+      <StackProfile.Screen name="Profile" component={Profile} />
+      <StackProfile.Screen name="YourFavorite" component={YourFavorite} />
+      <StackProfile.Screen name="FAQ" component={FAQ} />
+      <StackProfile.Screen name="Help" component={Help} />
+      <StackProfile.Screen name="UpdateProfile" component={UpdateProfile} />
+    </StackProfile.Navigator>
+  );
+};
+
 const Main = () => {
   const auth = useSelector(state => state.auth);
 
@@ -115,6 +130,10 @@ const Main = () => {
 import reduxStore from './src/redux/store';
 import {Provider, useSelector} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
+import UpdateProfile from './src/screens/UpdateProfile';
+import FAQ from './src/screens/FAQ';
+import Help from './src/screens/Help';
+import YourFavorite from './src/screens/YourFavorite';
 
 const {store, persistor} = reduxStore();
 

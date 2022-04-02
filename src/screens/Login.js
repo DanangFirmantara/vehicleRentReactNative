@@ -20,6 +20,7 @@ const Login = () => {
   const [show, setShow] = useState(false);
   const navigation = useNavigation();
   const dispatch = useDispatch();
+
   const onLogin = () => {
     console.log(username, 'ini username');
     console.log(password, 'ini password');
@@ -68,7 +69,7 @@ const Login = () => {
                   onPress={handleClick}
                   name={show ? 'eye' : 'eye-with-line'}
                   size={20}
-                  color="grey"
+                  color="rgba(57, 57, 57, 1)"
                 />
               </Box>
             }
