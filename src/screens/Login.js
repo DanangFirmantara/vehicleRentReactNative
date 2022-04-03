@@ -1,15 +1,15 @@
 import {
    View,
-   Text,
    ImageBackground,
    StyleSheet,
    TouchableOpacity,
+   Text,
 } from 'react-native';
 import React, {useState} from 'react';
 import imgBackground from '../assets/image/login.png';
 import ButtonForm from '../components/ButtonForm';
 import {useNavigation} from '@react-navigation/native';
-import {Alert, Box, Button, HStack, Input} from 'native-base';
+import {Alert, Box, Button, HStack, Input, Text as NvText} from 'native-base';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import {useDispatch, useSelector} from 'react-redux';
 import {doLogin} from '../redux/actions/auth';
@@ -95,11 +95,13 @@ const Login = () => {
                bg={'rgba(255, 205, 97, 1)'}
                borderRadius={10}
                marginY={2}
-               color={'rgba(57, 57, 57, 1)'}
-               fontWeight={'bold'}
-               fontSize={18}
                onPress={onLogin}>
-               Login
+               <NvText
+                  color={'rgba(57, 57, 57, 1)'}
+                  fontWeight={'bold'}
+                  fontSize={18}>
+                  Login
+               </NvText>
             </Button>
             {/* <ButtonForm>Login</ButtonForm> */}
             <ButtonForm color="white" google>
