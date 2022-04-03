@@ -93,11 +93,11 @@ const Login = () => {
             <Button
                height={50}
                bg={'rgba(255, 205, 97, 1)'}
-               color={'rgba(57, 57, 57, 1)'}
-               fontWeight="bold"
-               fontSize={18}
                borderRadius={10}
                marginY={2}
+               color={'rgba(57, 57, 57, 1)'}
+               fontWeight={'bold'}
+               fontSize={18}
                onPress={onLogin}>
                Login
             </Button>
