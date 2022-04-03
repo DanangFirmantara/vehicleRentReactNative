@@ -171,6 +171,7 @@ const Main = () => {
       <NativeBaseProvider>
          {auth.token === null && <Auth />}
          {auth.token !== null && <MainTab />}
+         {/* <MainTab /> */}
       </NativeBaseProvider>
    );
 };
