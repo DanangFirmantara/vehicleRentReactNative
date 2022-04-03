@@ -5,14 +5,22 @@ import {
    TouchableOpacity,
    Text,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import imgBackground from '../assets/image/login.png';
 import ButtonForm from '../components/ButtonForm';
 import {useNavigation} from '@react-navigation/native';
-import {Alert, Box, Button, HStack, Input, Text as NvText} from 'native-base';
+import {
+   Alert,
+   Box,
+   Button,
+   HStack,
+   Input,
+   Text as NvText,
+   Spinner,
+} from 'native-base';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import {useDispatch, useSelector} from 'react-redux';
-import {doLogin} from '../redux/actions/auth';
+import {clearMsg, doLogin} from '../redux/actions/auth';
 
 const Login = () => {
    const [username, setUsername] = useState();
@@ -21,6 +29,10 @@ const Login = () => {
    const navigation = useNavigation();
    const dispatch = useDispatch();
    const auth = useSelector(state => state.auth);
+
+   useEffect(() => {
+      dispatch(clearMsg());
+   }, [dispatch]);
 
    const onLogin = () => {
       console.log(username, 'ini username');
@@ -95,15 +107,24 @@ const Login = () => {
                bg={'rgba(255, 205, 97, 1)'}
                borderRadius={10}
                marginY={2}
-               onPress={onLogin}>
+               onPress={onLogin}
+               alignItems={'center'}>
                <NvText
                   color={'rgba(57, 57, 57, 1)'}
                   fontWeight={'bold'}
-                  fontSize={18}>
-                  Login
+                  fontSize={18}
+                  alignItems={'center'}>
+                  {auth.isLoading ? (
+                     <Spinner
+                        accessibilityLabel="Loading posts"
+                        color="rgba(57, 57, 57, 1)"
+                        size="lg"
+                     />
+                  ) : (
+                     'Login'
+                  )}
                </NvText>
             </Button>
-            {/* <ButtonForm>Login</ButtonForm> */}
             <ButtonForm color="white" google>
                Sign Up With Google
             </ButtonForm>
