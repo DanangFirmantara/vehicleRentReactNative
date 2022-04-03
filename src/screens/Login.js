@@ -98,8 +98,7 @@ const Login = () => {
                   }
                />
             </View>
-            <TouchableOpacity
-               onPress={() => navigation.navigate('ResetPassword')}>
+            <TouchableOpacity onPress={() => navigation.navigate('SendCode')}>
                <Text style={styles.textNavigate}>Forgot Password</Text>
             </TouchableOpacity>
             <Button

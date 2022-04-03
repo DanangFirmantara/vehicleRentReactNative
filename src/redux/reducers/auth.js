@@ -3,6 +3,7 @@ const initialState = {
    isError: false,
    errorMsg: '',
    successMsg: '',
+   isSuccess: false,
    isLoading: false,
 };
 export const AUTH_LOGIN = 'AUTH_LOGIN';
@@ -12,25 +13,29 @@ export const AUTH_CLEARSUCC = 'AUTH_CLEARSUCC';
 export const AUTH_LOADING = 'AUTH_LOADING';
 export const AUTH_SETERR = 'AUTH_SETERR';
 export const AUTH_CLEARERR = 'AUTH_CLEARERR';
+export const AUTH_CLEARISSUCC = 'AUTH_CLEARISSUCC';
 
 const auth = (state = initialState, action) => {
    switch (action.type) {
-      case 'AUTH_LOGIN': {
+      case AUTH_LOGIN: {
          return {...state, token: action.payload};
       }
-      case 'AUTH_LOGOUT': {
+      case AUTH_LOGOUT: {
          return {...initialState};
       }
       case AUTH_SETSUCC: {
-         return {...state, successMsg: action.payload};
+         return {...state, successMsg: action.payload, isSuccess: true};
       }
       case AUTH_CLEARSUCC: {
          return {...state, successMsg: ''};
       }
-      case 'AUTH_LOADING': {
+      case AUTH_CLEARISSUCC: {
+         return {...state, isSuccess: false};
+      }
+      case AUTH_LOADING: {
          return {...state, isLoading: !state.isLoading};
       }
-      case 'AUTH_SETERR': {
+      case AUTH_SETERR: {
          return {...state, isError: true, errorMsg: action.payload};
       }
       case AUTH_CLEARERR: {
