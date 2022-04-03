@@ -3,7 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Login from './src/screens/Login';
 import SignUp from './src/screens/SignUp';
-import ResetPassword from './src/screens/ResetPassword';
+import SendCode from './src/screens/SendCode';
 import {NativeBaseProvider} from 'native-base';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeAdmin from './src/screens/HomeAdmin';
@@ -24,6 +24,7 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import History from './src/screens/History';
 import Filter from './src/screens/Filter';
 import Detail from './src/screens/Detail';
+import ResetPassword from './src/screens/ResetPassword';
 
 const StackAuth = createNativeStackNavigator();
 const TabMain = createBottomTabNavigator();
@@ -44,6 +45,13 @@ const Auth = () => {
                }}
                name="SignUp"
                component={SignUp}
+            />
+            <StackAuth.Screen
+               options={{
+                  headerTitle: 'Send Code',
+               }}
+               name="SendCode"
+               component={SendCode}
             />
             <StackAuth.Screen
                options={{
