@@ -1,13 +1,15 @@
-import {HStack, Image, Text, VStack, Box, Button, Input} from 'native-base';
+import { HStack, Image, Text, VStack, Box, Button, Input } from 'native-base';
 import React from 'react';
 import Container from '../components/Container';
 import imgDetail from '../assets/image/home.png';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import { useNavigation } from '@react-navigation/native';
 
-const Detail = ({route}) => {
+const Detail = ({ route }) => {
    // const {id} = route.params;
+   const navigation = useNavigation();
    return (
       <>
          <Image
@@ -124,7 +126,11 @@ const Detail = ({route}) => {
                   borderRadius={10}
                />
             </HStack>
-            <Button height={50} bg={'rgba(255, 205, 97, 1)'} borderRadius={10}>
+            <Button
+               height={50}
+               bg={'rgba(255, 205, 97, 1)'}
+               borderRadius={10}
+               onPress={() => navigation.navigate('Reservation')}>
                <Text
                   color={'rgba(57, 57, 57, 1)'}
                   fontWeight="bold"

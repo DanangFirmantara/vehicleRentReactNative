@@ -1,11 +1,11 @@
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './src/screens/Login';
 import SignUp from './src/screens/SignUp';
 import SendCode from './src/screens/SendCode';
-import {NativeBaseProvider} from 'native-base';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { NativeBaseProvider } from 'native-base';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeAdmin from './src/screens/HomeAdmin';
 import Profile from './src/screens/Profile';
 import Search from './src/screens/Search';
@@ -14,17 +14,20 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import AddNewItem from './src/screens/AddNewItem';
 import reduxStore from './src/redux/store';
-import {Provider, useSelector} from 'react-redux';
-import {PersistGate} from 'redux-persist/integration/react';
+import { Provider, useSelector } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import UpdateProfile from './src/screens/UpdateProfile';
 import FAQ from './src/screens/FAQ';
 import Help from './src/screens/Help';
 import YourFavorite from './src/screens/YourFavorite';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import History from './src/screens/History';
 import Filter from './src/screens/Filter';
 import Detail from './src/screens/Detail';
 import ResetPassword from './src/screens/ResetPassword';
+import Reservation from './src/screens/Reservation';
+import OrderDetail from './src/screens/OrderDetail';
+import FinishPayment from './src/screens/FinishPayment';
 
 const StackAuth = createNativeStackNavigator();
 const TabMain = createBottomTabNavigator();
@@ -32,7 +35,7 @@ const StackHome = createNativeStackNavigator();
 const StackProfile = createNativeStackNavigator();
 const ChatStack = createMaterialTopTabNavigator();
 const StackSearch = createNativeStackNavigator();
-const {store, persistor} = reduxStore();
+const { store, persistor } = reduxStore();
 
 const Auth = () => {
    return (
@@ -161,8 +164,11 @@ const StackChat = () => {
 const SearchStack = () => {
    return (
       <StackSearch.Navigator>
+         <StackSearch.Screen name="OrderDetail" component={OrderDetail} />
+         <StackSearch.Screen name="Reservation" component={Reservation} />
+         <StackSearch.Screen name="FinishPayment" component={FinishPayment} />
          <StackSearch.Screen
-            options={{headerShown: false}}
+            options={{ headerShown: false }}
             name="Search"
             component={Search}
          />
@@ -173,7 +179,7 @@ const SearchStack = () => {
 };
 
 const Main = () => {
-   const auth = useSelector(state => state.auth);
+   const auth = useSelector((state) => state.auth);
 
    return (
       <NativeBaseProvider>

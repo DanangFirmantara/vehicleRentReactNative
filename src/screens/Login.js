@@ -5,10 +5,10 @@ import {
    TouchableOpacity,
    Text,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import imgBackground from '../assets/image/login.png';
 import ButtonForm from '../components/ButtonForm';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import {
    Alert,
    Box,
@@ -19,8 +19,8 @@ import {
    Spinner,
 } from 'native-base';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
-import {useDispatch, useSelector} from 'react-redux';
-import {clearMsg, doLogin} from '../redux/actions/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearMsg, doLogin } from '../redux/actions/auth';
 
 const Login = () => {
    const [username, setUsername] = useState();
@@ -28,7 +28,7 @@ const Login = () => {
    const [show, setShow] = useState(false);
    const navigation = useNavigation();
    const dispatch = useDispatch();
-   const auth = useSelector(state => state.auth);
+   const auth = useSelector((state) => state.auth);
 
    useEffect(() => {
       dispatch(clearMsg());
@@ -70,7 +70,7 @@ const Login = () => {
                   fontWeight="bold"
                   placeholder={'Username'}
                   placeholderTextColor="white"
-                  onChangeText={text => setUsername(text)}
+                  onChangeText={(text) => setUsername(text)}
                />
             </View>
             <View>
@@ -84,7 +84,7 @@ const Login = () => {
                   marginY={2}
                   placeholder={'Password'}
                   placeholderTextColor="white"
-                  onChangeText={text => setPassword(text)}
+                  onChangeText={(text) => setPassword(text)}
                   type={show ? 'text' : 'password'}
                   InputRightElement={
                      <Box marginRight={4}>

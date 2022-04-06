@@ -11,7 +11,7 @@ import {
 } from '../reducers/auth';
 
 export const doLogin = (username, password) => {
-   return async dispatch => {
+   return async (dispatch) => {
       try {
          dispatch({
             type: AUTH_CLEARERR,
@@ -27,7 +27,7 @@ export const doLogin = (username, password) => {
             password,
          });
 
-         const {data} = await http().post('/auth/login', param);
+         const { data } = await http().post('/auth/login', param);
          dispatch({
             type: AUTH_LOGIN,
             payload: data.results[0],
@@ -54,14 +54,14 @@ export const doLogin = (username, password) => {
 };
 
 export const doLogout = () => {
-   return dispatch => {
+   return (dispatch) => {
       dispatch({
          type: 'AUTH_LOGOUT',
       });
    };
 };
 export const doSignUp = (email, username, contact, password) => {
-   return async dispatch => {
+   return async (dispatch) => {
       try {
          dispatch({
             type: AUTH_CLEARERR,
@@ -82,7 +82,7 @@ export const doSignUp = (email, username, contact, password) => {
             contact,
          });
 
-         const {data} = await http().post('/users', param);
+         const { data } = await http().post('/users', param);
          console.log(data);
          dispatch({
             type: AUTH_SETSUCC,
@@ -110,7 +110,7 @@ export const doSignUp = (email, username, contact, password) => {
 };
 
 export const clearMsg = () => {
-   return dispatch => {
+   return (dispatch) => {
       dispatch({
          type: AUTH_CLEARSUCC,
       });
@@ -120,8 +120,8 @@ export const clearMsg = () => {
    };
 };
 
-export const doSendCode = email => {
-   return async dispatch => {
+export const doSendCode = (email) => {
+   return async (dispatch) => {
       try {
          dispatch({
             type: AUTH_CLEARERR,
@@ -138,7 +138,7 @@ export const doSendCode = email => {
          const param = qs.stringify({
             email,
          });
-         const {data} = await http().post('/auth/forgotRequest', param);
+         const { data } = await http().post('/auth/forgotRequest', param);
          dispatch({
             type: AUTH_SETSUCC,
             payload: data.message,
@@ -165,7 +165,7 @@ export const doSendCode = email => {
 };
 
 export const doResetPassword = (email, code, password, confirmPassword) => {
-   return async dispatch => {
+   return async (dispatch) => {
       try {
          dispatch({
             type: AUTH_CLEARERR,
@@ -185,7 +185,7 @@ export const doResetPassword = (email, code, password, confirmPassword) => {
             password,
             confirmPassword,
          });
-         const {data} = await http().post('/auth/forgotRequest', param);
+         const { data } = await http().post('/auth/forgotRequest', param);
          dispatch({
             type: AUTH_SETSUCC,
             payload: data.message,

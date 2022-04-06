@@ -1,5 +1,5 @@
-import {View, Text, ImageBackground, StyleSheet} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import { View, Text, ImageBackground, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import imgBackground from '../assets/image/reset-password.png';
 import {
    Alert,
@@ -11,10 +11,10 @@ import {
    VStack,
    Box,
 } from 'native-base';
-import {useDispatch, useSelector} from 'react-redux';
-import {clearMsg, doResetPassword} from '../redux/actions/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearMsg, doResetPassword } from '../redux/actions/auth';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 
 const ResetPassword = () => {
@@ -30,7 +30,7 @@ const ResetPassword = () => {
 
    const navigation = useNavigation();
    const dispatch = useDispatch();
-   const auth = useSelector(state => state.auth);
+   const auth = useSelector((state) => state.auth);
 
    useEffect(() => {
       dispatch(clearMsg());
@@ -111,7 +111,7 @@ const ResetPassword = () => {
                      fontWeight="bold"
                      placeholder={'Enter your email address'}
                      placeholderTextColor="rgba(57, 57, 57, 1)"
-                     onChangeText={text => setEmail(text)}
+                     onChangeText={(text) => setEmail(text)}
                   />
                </View>
                <View>
@@ -124,7 +124,7 @@ const ResetPassword = () => {
                      fontWeight="bold"
                      placeholder={'Code'}
                      placeholderTextColor="rgba(57, 57, 57, 1)"
-                     onChangeText={text => setCode(text)}
+                     onChangeText={(text) => setCode(text)}
                   />
                </View>
                <View>
@@ -138,7 +138,7 @@ const ResetPassword = () => {
                      placeholder={'Password'}
                      placeholderTextColor="rgba(57, 57, 57, 1)"
                      type={show1 ? 'text' : 'password'}
-                     onChangeText={text => setPassword(text)}
+                     onChangeText={(text) => setPassword(text)}
                      InputRightElement={
                         <Box marginRight={4}>
                            <EntypoIcon
@@ -162,7 +162,7 @@ const ResetPassword = () => {
                      placeholder={'Confirm Password'}
                      placeholderTextColor="rgba(57, 57, 57, 1)"
                      type={show2 ? 'text' : 'password'}
-                     onChangeText={text => setConfirmPassword(text)}
+                     onChangeText={(text) => setConfirmPassword(text)}
                      InputRightElement={
                         <Box marginRight={4}>
                            <EntypoIcon
@@ -176,7 +176,6 @@ const ResetPassword = () => {
                   />
                </View>
             </VStack>
-
             <Button
                height={50}
                bg={'rgba(255, 205, 97, 1)'}
