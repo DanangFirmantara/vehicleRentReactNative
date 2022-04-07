@@ -3,7 +3,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { HStack, Pressable, Text, View } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
 
-const BackItem = ({ children }) => {
+const Link = ({ children }) => {
    const navigation = useNavigation();
    return (
       <View>
@@ -14,7 +14,7 @@ const BackItem = ({ children }) => {
                alignItems={'center'}
                bg={'transparent'}>
                <Icon name="chevron-left" size={20} />
-               <Text fontSize={24} fontWeight={'bold'} marginLeft={4} pb={1}>
+               <Text fontSize={24} fontWeight={'bold'} marginLeft={4} pb={2}>
                   {children}
                </Text>
             </HStack>
@@ -23,4 +23,4 @@ const BackItem = ({ children }) => {
    );
 };
 
-export default BackItem;
+export default Link;

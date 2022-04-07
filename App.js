@@ -28,6 +28,9 @@ import ResetPassword from './src/screens/ResetPassword';
 import Reservation from './src/screens/Reservation';
 import OrderDetail from './src/screens/OrderDetail';
 import FinishPayment from './src/screens/FinishPayment';
+import BackItem from './src/components/BackItem';
+import PaymentSuccess from './src/screens/PaymentSuccess';
+import Link from './src/components/Link';
 
 const StackAuth = createNativeStackNavigator();
 const TabMain = createBottomTabNavigator();
@@ -156,7 +159,7 @@ const StackChat = () => {
    return (
       <ChatStack.Navigator>
          <ChatStack.Screen name="Chat" component={Chat} />
-         <ChatStack.Screen name="History Order" component={History} />
+         <ChatStack.Screen name="HistoryOrder" component={History} />
       </ChatStack.Navigator>
    );
 };
@@ -164,9 +167,35 @@ const StackChat = () => {
 const SearchStack = () => {
    return (
       <StackSearch.Navigator>
-         <StackSearch.Screen name="OrderDetail" component={OrderDetail} />
-         <StackSearch.Screen name="Reservation" component={Reservation} />
-         <StackSearch.Screen name="FinishPayment" component={FinishPayment} />
+         <StackSearch.Screen
+            name="Reservation"
+            component={Reservation}
+            options={{
+               header: () => <BackItem>Payment</BackItem>,
+            }}
+         />
+         <StackSearch.Screen
+            name="OrderDetail"
+            component={OrderDetail}
+            options={{
+               header: () => <BackItem>Payment</BackItem>,
+            }}
+         />
+         <StackSearch.Screen
+            name="FinishPayment"
+            component={FinishPayment}
+            options={{
+               header: () => <BackItem>Payment</BackItem>,
+            }}
+         />
+         <StackSearch.Screen
+            name="PaymentSuccess"
+            component={PaymentSuccess}
+            options={{
+               header: () => <Link to={'HistoryOrder'}>See History</Link>,
+            }}
+         />
+
          <StackSearch.Screen
             options={{ headerShown: false }}
             name="Search"

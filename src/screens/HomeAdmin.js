@@ -1,6 +1,6 @@
 import React from 'react';
 import Container from '../components/Container';
-import {Image, Input, HStack, Text, FlatList, Box} from 'native-base';
+import { Image, Input, HStack, Text, FlatList, Box } from 'native-base';
 import imgHeader from '../assets/image/home.png';
 import ButtonForm from '../components/ButtonForm';
 
@@ -45,7 +45,7 @@ const HomeAdmin = () => {
                <FlatList
                   horizontal={true}
                   data={data}
-                  renderItem={({item}) => (
+                  renderItem={({ item }) => (
                      <Box>
                         <HStack>
                            <Image source={item.img} alt={item.alt} />
