@@ -8,92 +8,32 @@ import {
    VStack,
    Button,
 } from 'native-base';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Container from '../components/Container';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import imgVehicle from '../assets/image/profile.png';
+import { useDispatch, useSelector } from 'react-redux';
+import { getVehicle, vehicleReset } from '../redux/actions/vehicle';
+import { BACKEND_URL } from '../../env';
 
 const Search = () => {
    const [search, setSearch] = useState();
    const navigation = useNavigation();
+   const dispatch = useDispatch();
+   const vehicleRedux = useSelector((state) => state.vehicle);
 
    useEffect(() => {
-      console.log(search);
-   }, [search]);
+      dispatch(getVehicle());
+   }, [search, dispatch]);
 
-   const vehicle = [
-      {
-         img: imgVehicle,
-         name: 'Vespa Matic',
-         prepayment: 245000,
-         status: 'Finished',
-         id: 1,
-      },
-      {
-         img: imgVehicle,
-         name: 'Vespa Matic',
-         prepayment: 245000,
-         status: 'Finished',
-         id: 2,
-      },
-      {
-         img: imgVehicle,
-         name: 'Vespa Matic',
-         prepayment: 245000,
-         status: 'Finished',
-         id: 3,
-      },
-      {
-         img: imgVehicle,
-         name: 'Vespa Matic',
-         prepayment: 245000,
-         status: 'Finished',
-         id: 4,
-      },
-      {
-         img: imgVehicle,
-         name: 'Vespa Matic',
-         prepayment: 245000,
-         status: 'Finished',
-         id: 5,
-      },
-      {
-         img: imgVehicle,
-         name: 'Vespa Matic',
-         prepayment: 245000,
-         status: 'Finished',
-         id: 6,
-      },
-      {
-         img: imgVehicle,
-         name: 'Vespa Matic',
-         prepayment: 245000,
-         status: 'Finished',
-         id: 7,
-      },
-      {
-         img: imgVehicle,
-         name: 'Vespa Matic',
-         prepayment: 245000,
-         status: 'Finished',
-         id: 8,
-      },
-      {
-         img: imgVehicle,
-         name: 'Vespa Matic',
-         prepayment: 245000,
-         status: 'Finished',
-         id: 9,
-      },
-   ];
    return (
       <Container>
          <Box my={4}>
             <Input
                defaultValue={search}
-               onChangeText={text => setSearch(text)}
+               onChangeText={(text) => setSearch(text)}
                InputLeftElement={
                   <>
                      <Box mx={4}>
@@ -119,7 +59,7 @@ const Search = () => {
                mb={4}
             />
             <Pressable onPress={() => navigation.navigate('Filter')}>
-               {({isHovered, isFocused, isPressed}) => {
+               {({ isHovered, isFocused, isPressed }) => {
                   return (
                      <Box
                         py="2"
@@ -143,20 +83,30 @@ const Search = () => {
             </Pressable>
 
             <FlatList
-               data={vehicle}
+               data={vehicleRedux.data.length > 0 ? vehicleRedux.data : null}
                showsVerticalScrollIndicator={false}
                ListFooterComponent={<Box mb={100} />}
-               renderItem={({item}) => {
+               renderItem={({ item }) => {
                   return (
                      <Button
+                        key={item.id}
                         backgroundColor={'transparent'}
                         my={1}
                         justifyContent={'flex-start'}
-                        onPress={() => navigation.navigate('Detail', {id: 1})}>
-                        <HStack alignItems={'center'} key={item.id}>
+                        onPress={() =>
+                           navigation.navigate('Detail', { id: item.id })
+                        }>
+                        <HStack alignItems={'center'}>
                            <Box mr={5}>
                               <Image
-                                 source={item.img}
+                                 source={
+                                    item.image
+                                       ? item.image.replace(
+                                            'http://localhost:5000',
+                                            BACKEND_URL,
+                                         )
+                                       : imgVehicle
+                                 }
                                  width={100}
                                  height={88}
                                  borderRadius={15}
@@ -169,13 +119,21 @@ const Search = () => {
                                  fontWeight={'bold'}>
                                  {item.name}
                               </Text>
-                              <Text>Jan 18 to 21 2021</Text>
+                              <Text>
+                                 {item.image
+                                    ? item.image.replace(
+                                         'http://localhost:5000',
+                                         BACKEND_URL,
+                                      )
+                                    : 'null'}
+                              </Text>
                               <Text
                                  color={'rgba(57, 57, 57, 1)'}
                                  fontWeight={'bold'}>
-                                 Prepayment : Rp.{item.prepayment}
+                                 Prepayment : Rp.
+                                 {item.price}
                               </Text>
-                              <Text color={'green.900'}>{item.status}</Text>
+                              <Text color={'green.800'}>{item.status}</Text>
                            </VStack>
                         </HStack>
                      </Button>

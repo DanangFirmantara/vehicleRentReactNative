@@ -137,7 +137,13 @@ const MainTab = () => {
 const HomeStack = () => {
    return (
       <StackHome.Navigator>
-         <StackHome.Screen name="HomeAdmin" component={HomeAdmin} />
+         <StackHome.Screen
+            name="HomeAdmin"
+            component={HomeAdmin}
+            options={{
+               headerShown: false,
+            }}
+         />
          <StackHome.Screen name="AddNewItem" component={AddNewItem} />
       </StackHome.Navigator>
    );
@@ -168,6 +174,25 @@ const SearchStack = () => {
    return (
       <StackSearch.Navigator>
          <StackSearch.Screen
+            options={{ headerShown: false }}
+            name="Search"
+            component={Search}
+         />
+         <StackSearch.Screen
+            name="Filter"
+            component={Filter}
+            options={{
+               header: () => <BackItem>Filter</BackItem>,
+            }}
+         />
+         <StackSearch.Screen
+            name="Detail"
+            component={Detail}
+            options={{
+               headerShown: false,
+            }}
+         />
+         <StackSearch.Screen
             name="Reservation"
             component={Reservation}
             options={{
@@ -195,14 +220,6 @@ const SearchStack = () => {
                header: () => <Link to={'HistoryOrder'}>See History</Link>,
             }}
          />
-
-         <StackSearch.Screen
-            options={{ headerShown: false }}
-            name="Search"
-            component={Search}
-         />
-         <StackSearch.Screen name="Filter" component={Filter} />
-         <StackSearch.Screen name="Detail" component={Detail} />
       </StackSearch.Navigator>
    );
 };

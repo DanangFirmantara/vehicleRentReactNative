@@ -18,31 +18,31 @@ export const AUTH_CLEARISSUCC = 'AUTH_CLEARISSUCC';
 const auth = (state = initialState, action) => {
    switch (action.type) {
       case AUTH_LOGIN: {
-         return {...state, token: action.payload};
+         return { ...state, token: action.payload };
       }
       case AUTH_LOGOUT: {
-         return {...initialState};
+         return { ...initialState };
       }
       case AUTH_SETSUCC: {
-         return {...state, successMsg: action.payload, isSuccess: true};
+         return { ...state, successMsg: action.payload, isSuccess: true };
       }
       case AUTH_CLEARSUCC: {
-         return {...state, successMsg: ''};
+         return { ...state, successMsg: '' };
       }
       case AUTH_CLEARISSUCC: {
-         return {...state, isSuccess: false};
+         return { ...state, isSuccess: false };
       }
       case AUTH_LOADING: {
-         return {...state, isLoading: !state.isLoading};
+         return { ...state, isLoading: !state.isLoading };
       }
       case AUTH_SETERR: {
-         return {...state, isError: true, errorMsg: action.payload};
+         return { ...state, isError: true, errorMsg: action.payload };
       }
       case AUTH_CLEARERR: {
-         return {...state, isError: false, errorMsg: ''};
+         return { ...state, isError: false, errorMsg: '' };
       }
       default: {
-         return {...state};
+         return { ...state };
       }
    }
 };
