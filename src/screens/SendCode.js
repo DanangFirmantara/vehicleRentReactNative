@@ -1,5 +1,5 @@
-import {View, Text, ImageBackground, StyleSheet} from 'react-native';
-import React, {useState} from 'react';
+import { View, Text, ImageBackground, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
 import imgBackground from '../assets/image/reset-password.png';
 import {
    Alert,
@@ -10,9 +10,9 @@ import {
    Text as NvText,
    VStack,
 } from 'native-base';
-import {useDispatch, useSelector} from 'react-redux';
-import {doSendCode} from '../redux/actions/auth';
-import {useNavigation} from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { doSendCode } from '../redux/actions/auth';
+import { useNavigation } from '@react-navigation/native';
 
 const SendCode = () => {
    const [email, setEmail] = useState();
@@ -20,7 +20,7 @@ const SendCode = () => {
 
    const navigation = useNavigation();
    const dispatch = useDispatch();
-   const auth = useSelector(state => state.auth);
+   const auth = useSelector((state) => state.auth);
    const onSendCode = () => {
       if (!email.includes('@')) {
          setErr('email must be include @');
@@ -86,7 +86,7 @@ const SendCode = () => {
                      fontWeight="bold"
                      placeholder={'Enter your email address'}
                      placeholderTextColor="rgba(57, 57, 57, 1)"
-                     onChangeText={text => setEmail(text)}
+                     onChangeText={(text) => setEmail(text)}
                   />
                </View>
             </VStack>

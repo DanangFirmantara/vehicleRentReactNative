@@ -8,7 +8,7 @@ import {
    VStack,
    Button,
 } from 'native-base';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Container from '../components/Container';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
@@ -16,7 +16,13 @@ import {useNavigation} from '@react-navigation/native';
 import imgVehicle from '../assets/image/profile.png';
 
 const Search = () => {
+   const [search, setSearch] = useState();
    const navigation = useNavigation();
+
+   useEffect(() => {
+      console.log(search);
+   }, [search]);
+
    const vehicle = [
       {
          img: imgVehicle,
@@ -67,11 +73,27 @@ const Search = () => {
          status: 'Finished',
          id: 7,
       },
+      {
+         img: imgVehicle,
+         name: 'Vespa Matic',
+         prepayment: 245000,
+         status: 'Finished',
+         id: 8,
+      },
+      {
+         img: imgVehicle,
+         name: 'Vespa Matic',
+         prepayment: 245000,
+         status: 'Finished',
+         id: 9,
+      },
    ];
    return (
       <Container>
          <Box my={4}>
             <Input
+               defaultValue={search}
+               onChangeText={text => setSearch(text)}
                InputLeftElement={
                   <>
                      <Box mx={4}>
@@ -82,7 +104,11 @@ const Search = () => {
                InputRightElement={
                   <>
                      <Box mx={4}>
-                        <Icon name="close" size={20} />
+                        <Icon
+                           name="close"
+                           size={20}
+                           onPress={() => setSearch('')}
+                        />
                      </Box>
                   </>
                }
@@ -115,9 +141,11 @@ const Search = () => {
                   );
                }}
             </Pressable>
+
             <FlatList
                data={vehicle}
                showsVerticalScrollIndicator={false}
+               ListFooterComponent={<Box mb={100} />}
                renderItem={({item}) => {
                   return (
                      <Button
