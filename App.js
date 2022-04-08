@@ -44,7 +44,11 @@ const Auth = () => {
    return (
       <NavigationContainer>
          <StackAuth.Navigator>
-            <StackAuth.Screen name="Login" component={Login} />
+            <StackAuth.Screen
+               name="Login"
+               component={Login}
+               options={{ headerShown: false }}
+            />
             <StackAuth.Screen
                options={{
                   headerTitle: 'Sign Up',

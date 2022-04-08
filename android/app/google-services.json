@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "19362161623",
+    "project_id": "vehicle-rent-a8514",
+    "storage_bucket": "vehicle-rent-a8514.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:19362161623:android:aa184e6992dcf42d4d6192",
+        "android_client_info": {
+          "package_name": "com.nangs.cuskan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "19362161623-sll1lp3dopkjenj4ercbji2r1ha1ojmi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nangs.cuskan",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "19362161623-r3i656qdig51i2gru6g8k2jpss0kgbhg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDg7_6vNMZjyfqFhezA0VwklrmHxTdPAfg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "19362161623-r3i656qdig51i2gru6g8k2jpss0kgbhg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
