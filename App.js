@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './src/screens/Login';
@@ -31,6 +31,8 @@ import FinishPayment from './src/screens/FinishPayment';
 import BackItem from './src/components/BackItem';
 import PaymentSuccess from './src/screens/PaymentSuccess';
 import Link from './src/components/Link';
+import messaging from '@react-native-firebase/messaging';
+import PushNotification from 'react-native-push-notification';
 
 const StackAuth = createNativeStackNavigator();
 const TabMain = createBottomTabNavigator();
@@ -39,6 +41,14 @@ const StackProfile = createNativeStackNavigator();
 const ChatStack = createMaterialTopTabNavigator();
 const StackSearch = createNativeStackNavigator();
 const { store, persistor } = reduxStore();
+
+PushNotification.createChannel({
+   channelId: 'profile-notif',
+   channelName: 'for test notification',
+   vibrate: true,
+   playSound: true,
+   soundName: 'default',
+});
 
 const Auth = () => {
    return (
@@ -241,6 +251,13 @@ const Main = () => {
 };
 
 const App = () => {
+   const getToken = async () => {
+      const token = await messaging().getToken();
+      console.log(token);
+   };
+   useEffect(() => {
+      getToken();
+   }, []);
    return (
       <Provider store={store}>
          <PersistGate persistor={persistor} loading={null}>
