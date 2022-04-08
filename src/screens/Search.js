@@ -7,6 +7,8 @@ import {
    Image,
    VStack,
    Button,
+   Spinner,
+   Skeleton,
 } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import Container from '../components/Container';
@@ -15,7 +17,7 @@ import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import { useNavigation } from '@react-navigation/native';
 import imgVehicle from '../assets/image/profile.png';
 import { useDispatch, useSelector } from 'react-redux';
-import { getVehicle, vehicleReset } from '../redux/actions/vehicle';
+import { getVehicle } from '../redux/actions/vehicle';
 import { BACKEND_URL } from '../../env';
 
 const Search = () => {
@@ -76,12 +78,34 @@ const Search = () => {
                            <Text fontSize={18} fontWeight={600} flex={1}>
                               Filter
                            </Text>
+                           {vehicleRedux.isLoading && (
+                              <Spinner color={'rgba(255, 205, 97, 1)'} />
+                           )}
                         </HStack>
                      </Box>
                   );
                }}
             </Pressable>
-
+            {vehicleRedux.isLoading &&
+               [...Array(5)].map((o, i) => {
+                  return (
+                     <HStack alignItems={'center'} key={i} my={4}>
+                        <Box mr={5}>
+                           <Skeleton
+                              width={100}
+                              height={88}
+                              borderRadius={15}
+                           />
+                        </Box>
+                        <VStack space={2} flex={3}>
+                           <Skeleton.Text width={'16'} lines={1} />
+                           <Skeleton.Text width={'48'} lines={1} />
+                           <Skeleton.Text width={90} lines={1} />
+                           <Skeleton.Text width={'16'} lines={1} />
+                        </VStack>
+                     </HStack>
+                  );
+               })}
             <FlatList
                data={vehicleRedux.data.length > 0 ? vehicleRedux.data : null}
                showsVerticalScrollIndicator={false}
@@ -101,14 +125,17 @@ const Search = () => {
                               <Image
                                  source={
                                     item.image
-                                       ? item.image.replace(
-                                            'http://localhost:5000',
-                                            BACKEND_URL,
-                                         )
+                                       ? {
+                                            uri: item.image.replace(
+                                               'http://localhost:5000',
+                                               BACKEND_URL,
+                                            ),
+                                         }
                                        : imgVehicle
                                  }
                                  width={100}
                                  height={88}
+                                 resizeMode={'cover'}
                                  borderRadius={15}
                                  alt={String(item.id)}
                               />

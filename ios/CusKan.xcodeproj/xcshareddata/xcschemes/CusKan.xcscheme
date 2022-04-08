@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "vehicleRentReactNative.app"
-               BlueprintName = "vehicleRentReactNative"
-               ReferencedContainer = "container:vehicleRentReactNative.xcodeproj">
+               BuildableName = "CusKan.app"
+               BlueprintName = "CusKan"
+               ReferencedContainer = "container:CusKan.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "vehicleRentReactNativeTests.xctest"
-               BlueprintName = "vehicleRentReactNativeTests"
-               ReferencedContainer = "container:vehicleRentReactNative.xcodeproj">
+               BuildableName = "CusKanTests.xctest"
+               BlueprintName = "CusKanTests"
+               ReferencedContainer = "container:CusKan.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "vehicleRentReactNative.app"
-            BlueprintName = "vehicleRentReactNative"
-            ReferencedContainer = "container:vehicleRentReactNative.xcodeproj">
+            BuildableName = "CusKan.app"
+            BlueprintName = "CusKan"
+            ReferencedContainer = "container:CusKan.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "vehicleRentReactNative.app"
-            BlueprintName = "vehicleRentReactNative"
-            ReferencedContainer = "container:vehicleRentReactNative.xcodeproj">
+            BuildableName = "CusKan.app"
+            BlueprintName = "CusKan"
+            ReferencedContainer = "container:CusKan.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
