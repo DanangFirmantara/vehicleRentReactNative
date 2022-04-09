@@ -8,6 +8,7 @@ import { doLogout } from '../redux/actions/auth';
 import { useNavigation } from '@react-navigation/native';
 import { vehicleReset } from '../redux/actions/vehicle';
 import PushNotification from 'react-native-push-notification';
+import { reservationClear } from '../redux/actions/reservation';
 
 const Profile = () => {
    const dispatch = useDispatch();
@@ -16,6 +17,9 @@ const Profile = () => {
    };
    const onResetVehicle = () => {
       dispatch(vehicleReset());
+   };
+   const onResetReservation = () => {
+      dispatch(reservationClear());
    };
    const data = [
       {
@@ -101,6 +105,19 @@ const Profile = () => {
                );
             }}
          </Pressable>
+         <Button
+            height={50}
+            bg={'rgba(255, 205, 97, 1)'}
+            color={'rgba(57, 57, 57, 1)'}
+            fontWeight="bold"
+            fontSize={18}
+            borderRadius={10}
+            marginY={2}
+            onPress={onResetReservation}>
+            <Text fontSize={17} fontWeight={'bold'}>
+               Reset Reservation
+            </Text>
+         </Button>
          <Button
             height={50}
             bg={'rgba(255, 205, 97, 1)'}

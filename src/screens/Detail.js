@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import {
    HStack,
    Image,
@@ -5,10 +6,11 @@ import {
    VStack,
    Box,
    Button,
-   Input,
    Skeleton,
+   Select,
+   CheckIcon,
 } from 'native-base';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Container from '../components/Container';
 import imgDetail from '../assets/image/home.png';
 import IonIcon from 'react-native-vector-icons/Ionicons';
@@ -20,10 +22,21 @@ import FaIcon from 'react-native-vector-icons/FontAwesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDetail, getVehicle } from '../redux/actions/vehicle';
 import { BACKEND_URL } from '../../env';
+import DatePicker from 'react-native-date-picker';
+import {
+   decQuantity,
+   incQuantity,
+   startDate,
+} from '../redux/actions/reservation';
 
 const Detail = ({ route }) => {
+   const [date, setDate] = useState(new Date());
+   const [open, setOpen] = useState(false);
+   const [service, setService] = useState('');
    const { id } = route.params;
    const vehicle = useSelector((state) => state.vehicle);
+   const reservation = useSelector((state) => state.reservation);
+
    const data = vehicle.data;
    const dispatch = useDispatch();
    useEffect(() => {
@@ -33,8 +46,35 @@ const Detail = ({ route }) => {
       };
    }, [dispatch, id]);
    const navigation = useNavigation();
+   const increament = () => {
+      console.log('tambah');
+      console.log(reservation.quantity);
+      console.log(data.stock);
+      if (reservation.quantity < data.stock) {
+         dispatch(incQuantity());
+      }
+   };
+   const decreament = () => {
+      if (reservation.quantity > 0) {
+         dispatch(decQuantity());
+      }
+   };
    return (
       <>
+         <DatePicker
+            modal
+            open={open}
+            date={date}
+            onConfirm={(date) => {
+               setOpen(false);
+               setDate(date);
+               console.log(date, 'ini data screen');
+               dispatch(startDate(date));
+            }}
+            onCancel={() => {
+               setOpen(false);
+            }}
+         />
          <Box position={'relative'}>
             {!vehicle.isLoading && (
                <Image
@@ -187,37 +227,71 @@ const Detail = ({ route }) => {
                         <HStack space={4} alignItems={'center'}>
                            <Button
                               borderRadius={100}
-                              bg={'rgba(255, 205, 97, 1)'}>
+                              bg={'rgba(255, 205, 97, 1)'}
+                              onPress={decreament}>
                               <Text fontWeight={'extrabold'} fontSize={17}>
                                  -
                               </Text>
                            </Button>
                            <Text fontWeight={'extrabold'} fontSize={17}>
-                              2
+                              {reservation.quantity}
                            </Text>
                            <Button
                               borderRadius={100}
-                              bg={'rgba(255, 205, 97, 1)'}>
+                              bg={'rgba(255, 205, 97, 1)'}
+                              onPress={increament}>
                               <Text fontWeight={'extrabold'} fontSize={17}>
                                  +
                               </Text>
                            </Button>
                         </HStack>
                      </HStack>
+
                      <HStack my={2}>
-                        <Input
+                        <Pressable flex={1} onPress={() => setOpen(true)}>
+                           <Box
+                              bg="rgba(223, 222, 222, 0.5)"
+                              color="rgba(57, 57, 57, 0.8)"
+                              variant="filled"
+                              paddingLeft={5}
+                              fontSize={12}
+                              fontWeight="bold"
+                              placeholder={'Select date'}
+                              placeholderTextColor="rgba(57, 57, 57, 0.8)"
+                              flex={1}
+                              borderRadius={10}
+                              justifyContent={'center'}>
+                              <Text>date</Text>
+                           </Box>
+                        </Pressable>
+                        <Box
                            bg="rgba(223, 222, 222, 0.5)"
                            color="rgba(57, 57, 57, 0.8)"
                            variant="filled"
-                           paddingLeft={5}
-                           fontSize={12}
-                           fontWeight="bold"
-                           placeholder={'Select date'}
-                           placeholderTextColor="rgba(57, 57, 57, 0.8)"
-                           flex={1}
-                           borderRadius={10}
-                        />
-                        <Input
+                           placeholder={'1 Day'}
+                           w={20}
+                           ml={4}
+                           borderRadius={10}>
+                           <Select
+                              selectedValue={service}
+                              accessibilityLabel="Choose Service"
+                              placeholder="Day"
+                              _selectedItem={{
+                                 bg: 'rgba(255, 205, 97, 1)',
+                                 endIcon: <CheckIcon size="5" />,
+                              }}
+                              mt={1}
+                              onValueChange={(itemValue) =>
+                                 setService(itemValue)
+                              }>
+                              <Select.Item label="1 Day" value={1} />
+                              <Select.Item label="2 Day" value={2} />
+                              <Select.Item label="3 Day" value={3} />
+                              <Select.Item label="4 Day" value={4} />
+                              <Select.Item label="5 Day" value={5} />
+                           </Select>
+                        </Box>
+                        {/* <Input
                            bg="rgba(223, 222, 222, 0.5)"
                            color="rgba(57, 57, 57, 0.8)"
                            variant="filled"
@@ -229,7 +303,7 @@ const Detail = ({ route }) => {
                            ml={4}
                            placeholderTextColor="rgba(57, 57, 57, 0.8)"
                            borderRadius={10}
-                        />
+                        /> */}
                      </HStack>
                   </VStack>
                   <Button
