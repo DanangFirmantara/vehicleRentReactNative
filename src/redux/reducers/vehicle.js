@@ -8,7 +8,8 @@ const initialState = {
 
 export const VEHICLE_GET = 'VEHICLE_GET';
 export const VEHICLE_GETPAGEINFO = 'VEHICLE_GETPAGEINFO';
-export const VEHICLE_LOADING = 'VEHICLE_LOADING';
+export const VEHICLE_SETLOADING = 'VEHICLE_SETLOADING';
+export const VEHICLE_CLEARLOADING = 'VEHICLE_CLEARLOADING';
 export const VEHICLE_SETERR = 'VEHICLE_SETERR';
 export const VEHICLE_CLEARERR = 'VEHICLE_CLEARERR';
 export const VEHICLE_RESET = 'VEHICLE_RESET';
@@ -21,8 +22,11 @@ const vehicle = (state = initialState, action) => {
       case VEHICLE_GETPAGEINFO: {
          return { ...state, pageInfo: action.payload };
       }
-      case VEHICLE_LOADING: {
-         return { ...state, isLoading: !state.isLoading };
+      case VEHICLE_SETLOADING: {
+         return { ...state, isLoading: true };
+      }
+      case VEHICLE_CLEARLOADING: {
+         return { ...state, isLoading: false };
       }
       case VEHICLE_SETERR: {
          return { ...state, isError: true, errorMsg: action.payload };
