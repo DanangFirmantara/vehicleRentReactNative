@@ -3,7 +3,8 @@ import {
    VEHICLE_CLEARERR,
    VEHICLE_GET,
    VEHICLE_GETPAGEINFO,
-   VEHICLE_LOADING,
+   VEHICLE_SETLOADING,
+   VEHICLE_CLEARLOADING,
    VEHICLE_RESET,
    VEHICLE_SETERR,
 } from '../reducers/vehicle';
@@ -12,7 +13,7 @@ export const getVehicle = () => {
    return async (dispatch) => {
       try {
          dispatch({
-            type: VEHICLE_LOADING,
+            type: VEHICLE_SETLOADING,
          });
          dispatch({
             type: VEHICLE_CLEARERR,
@@ -27,7 +28,7 @@ export const getVehicle = () => {
             payload: data.pageInfo,
          });
          dispatch({
-            type: VEHICLE_LOADING,
+            type: VEHICLE_CLEARLOADING,
          });
       } catch (err) {
          let payload = '';
@@ -41,7 +42,7 @@ export const getVehicle = () => {
             payload: payload,
          });
          dispatch({
-            type: VEHICLE_LOADING,
+            type: VEHICLE_CLEARLOADING,
          });
       }
    };
@@ -59,7 +60,7 @@ export const getDetail = (id) => {
    return async (dispatch) => {
       try {
          dispatch({
-            type: VEHICLE_LOADING,
+            type: VEHICLE_SETLOADING,
          });
          dispatch({
             type: VEHICLE_CLEARERR,
@@ -70,7 +71,7 @@ export const getDetail = (id) => {
             payload: data.results[0],
          });
          dispatch({
-            type: VEHICLE_LOADING,
+            type: VEHICLE_CLEARLOADING,
          });
       } catch (err) {
          let payload = '';
@@ -84,8 +85,15 @@ export const getDetail = (id) => {
             payload: payload,
          });
          dispatch({
-            type: VEHICLE_LOADING,
+            type: VEHICLE_CLEARLOADING,
          });
       }
+   };
+};
+export const vehicleLoading = () => {
+   return (dispatch) => {
+      dispatch({
+         type: VEHICLE_SETLOADING,
+      });
    };
 };
