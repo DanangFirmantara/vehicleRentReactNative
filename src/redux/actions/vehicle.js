@@ -7,6 +7,7 @@ import {
    VEHICLE_CLEARLOADING,
    VEHICLE_RESET,
    VEHICLE_SETERR,
+   VEHICLE_DETAIL,
 } from '../reducers/vehicle';
 
 export const getVehicle = () => {
@@ -67,7 +68,7 @@ export const getDetail = (id) => {
          });
          const { data } = await http().get(`/vehicles?id=${id}`);
          dispatch({
-            type: VEHICLE_GET,
+            type: VEHICLE_DETAIL,
             payload: data.results[0],
          });
          dispatch({

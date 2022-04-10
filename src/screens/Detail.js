@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 /* eslint-disable no-shadow */
 import {
    HStack,
@@ -25,6 +26,7 @@ import { BACKEND_URL } from '../../env';
 import DatePicker from 'react-native-date-picker';
 import {
    decQuantity,
+   endDate,
    incQuantity,
    startDate,
 } from '../redux/actions/reservation';
@@ -37,7 +39,7 @@ const Detail = ({ route }) => {
    const vehicle = useSelector((state) => state.vehicle);
    const reservation = useSelector((state) => state.reservation);
 
-   const data = vehicle.data;
+   const data = vehicle.detail;
    const dispatch = useDispatch();
    useEffect(() => {
       dispatch(getDetail(id));
@@ -59,6 +61,11 @@ const Detail = ({ route }) => {
          dispatch(decQuantity());
       }
    };
+
+   const onReservation = () => {
+      console.log(service);
+      navigation.navigate('Reservation');
+   };
    return (
       <>
          <DatePicker
@@ -68,8 +75,7 @@ const Detail = ({ route }) => {
             onConfirm={(date) => {
                setOpen(false);
                setDate(date);
-               console.log(date, 'ini data screen');
-               dispatch(startDate(date));
+               dispatch(startDate(date.toISOString().slice(0, 10)));
             }}
             onCancel={() => {
                setOpen(false);
@@ -281,9 +287,21 @@ const Detail = ({ route }) => {
                                  endIcon: <CheckIcon size="5" />,
                               }}
                               mt={1}
-                              onValueChange={(itemValue) =>
-                                 setService(itemValue)
-                              }>
+                              onValueChange={(itemValue) => {
+                                 // console.log(
+                                 //    date.toISOString().slice(0, 10),
+                                 //    'ini data screen',
+                                 // );
+                                 date.setDate(
+                                    date.getDate() + parseInt(itemValue),
+                                 );
+                                 // console.log(date.toISOString().slice(0, 10));
+                                 // console.log(itemValue);
+                                 setService(itemValue);
+                                 dispatch(
+                                    endDate(date.toISOString().slice(0, 10)),
+                                 );
+                              }}>
                               <Select.Item label="1 Day" value={1} />
                               <Select.Item label="2 Day" value={2} />
                               <Select.Item label="3 Day" value={3} />
@@ -291,26 +309,13 @@ const Detail = ({ route }) => {
                               <Select.Item label="5 Day" value={5} />
                            </Select>
                         </Box>
-                        {/* <Input
-                           bg="rgba(223, 222, 222, 0.5)"
-                           color="rgba(57, 57, 57, 0.8)"
-                           variant="filled"
-                           paddingLeft={5}
-                           fontSize={12}
-                           fontWeight="bold"
-                           placeholder={'1 Day'}
-                           w={20}
-                           ml={4}
-                           placeholderTextColor="rgba(57, 57, 57, 0.8)"
-                           borderRadius={10}
-                        /> */}
                      </HStack>
                   </VStack>
                   <Button
                      height={50}
                      bg={'rgba(255, 205, 97, 1)'}
                      borderRadius={10}
-                     onPress={() => navigation.navigate('Reservation')}>
+                     onPress={onReservation}>
                      <Text
                         color={'rgba(57, 57, 57, 1)'}
                         fontWeight="bold"

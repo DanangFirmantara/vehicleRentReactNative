@@ -5,7 +5,16 @@ import {
    RESERVATION_SETENDDATE,
    RESERVATION_SETSTARTDATE,
    RESERVATION_CLEARDATA,
+   RESERVATION_SETLOADING,
+   RESERVATION_CLEARERROR,
+   RESERVATION_SUCCESSMSG,
+   RESERVATION_CLEARLOADING,
+   RESERVATION_ERRORMSG,
+   RESERVATION_GETDATA,
 } from '../reducers/reservation';
+
+import qs from 'query-string';
+import http from '../../helpers/http';
 
 export const incQuantity = () => {
    return (dispatch) => {
@@ -43,5 +52,58 @@ export const reservationClear = () => {
       dispatch({
          type: RESERVATION_CLEARDATA,
       });
+   };
+};
+export const postReservation = (
+   idCard,
+   name,
+   lastName,
+   contact,
+   email,
+   payment,
+) => {
+   return async (dispatch) => {
+      try {
+         dispatch({
+            type: RESERVATION_SETLOADING,
+         });
+         dispatch({
+            type: RESERVATION_CLEARERROR,
+         });
+         const param = qs.stringify({
+            idCard,
+            name,
+            lastName,
+            contact,
+            email,
+            payment,
+         });
+         const { data } = await http().post('/reservation', param);
+         dispatch({
+            type: RESERVATION_GETDATA,
+            payload: data.results[0],
+         });
+         dispatch({
+            type: RESERVATION_SUCCESSMSG,
+            payload: data.message,
+         });
+         dispatch({
+            type: RESERVATION_CLEARLOADING,
+         });
+      } catch (err) {
+         let payload = '';
+         if (err.response) {
+            payload = err.response.data.message;
+         } else {
+            payload = err.message;
+         }
+         dispatch({
+            type: RESERVATION_ERRORMSG,
+            payload: payload,
+         });
+         dispatch({
+            type: RESERVATION_SETLOADING,
+         });
+      }
    };
 };

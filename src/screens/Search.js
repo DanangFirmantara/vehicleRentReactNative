@@ -19,6 +19,7 @@ import imgVehicle from '../assets/image/profile.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { getVehicle } from '../redux/actions/vehicle';
 import { BACKEND_URL } from '../../env';
+import { reservationClear } from '../redux/actions/reservation';
 
 const Search = () => {
    const [search, setSearch] = useState();
@@ -28,6 +29,7 @@ const Search = () => {
 
    useEffect(() => {
       dispatch(getVehicle());
+      dispatch(reservationClear());
    }, [search, dispatch]);
 
    return (

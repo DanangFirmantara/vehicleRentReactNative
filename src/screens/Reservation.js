@@ -12,6 +12,8 @@ import {
 } from 'native-base';
 import Stepper from '../components/Stepper';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { postReservation } from '../redux/actions/reservation';
 
 const Reservation = () => {
    const [idCard, setIdCard] = useState();
@@ -21,9 +23,12 @@ const Reservation = () => {
    const [email, setEmail] = useState();
    const [service, setService] = useState();
    const navigation = useNavigation();
-
+   const dispatch = useDispatch();
    const onOrder = () => {
-      console.log(idCard, name, lastName, contact, email);
+      console.log(idCard, name, lastName, contact, email, service);
+      dispatch(
+         postReservation(idCard, name, lastName, contact, email, service),
+      );
       navigation.navigate('OrderDetail');
    };
 
@@ -41,7 +46,7 @@ const Reservation = () => {
                   height={60}
                   paddingLeft={5}
                   fontSize={12}
-                  fontWeight="bold"
+                  fontWeight={'bold'}
                   placeholder={'ID Card Number'}
                   placeholderTextColor="rgba(57, 57, 57, 1)"
                   onChangeText={(text) => setIdCard(text)}

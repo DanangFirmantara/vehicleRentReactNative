@@ -83,7 +83,6 @@ export const doSignUp = (email, username, contact, password) => {
          });
 
          const { data } = await http().post('/users', param);
-         console.log(data);
          dispatch({
             type: AUTH_SETSUCC,
             payload: data.message,
