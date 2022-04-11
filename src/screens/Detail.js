@@ -288,15 +288,9 @@ const Detail = ({ route }) => {
                               }}
                               mt={1}
                               onValueChange={(itemValue) => {
-                                 // console.log(
-                                 //    date.toISOString().slice(0, 10),
-                                 //    'ini data screen',
-                                 // );
                                  date.setDate(
                                     date.getDate() + parseInt(itemValue),
                                  );
-                                 // console.log(date.toISOString().slice(0, 10));
-                                 // console.log(itemValue);
                                  setService(itemValue);
                                  dispatch(
                                     endDate(date.toISOString().slice(0, 10)),

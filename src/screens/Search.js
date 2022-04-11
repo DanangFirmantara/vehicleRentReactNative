@@ -119,9 +119,11 @@ const Search = () => {
                         backgroundColor={'transparent'}
                         my={1}
                         justifyContent={'flex-start'}
-                        onPress={() =>
-                           navigation.navigate('Detail', { id: item.id })
-                        }>
+                        onPress={() => {
+                           if (item.status === 'Available') {
+                              navigation.navigate('Detail', { id: item.id });
+                           }
+                        }}>
                         <HStack alignItems={'center'}>
                            <Box mr={5}>
                               <Image
@@ -137,7 +139,7 @@ const Search = () => {
                                  }
                                  width={100}
                                  height={88}
-                                 resizeMode={'cover'}
+                                 resizeMode={'contain'}
                                  borderRadius={15}
                                  alt={String(item.id)}
                               />
@@ -162,7 +164,14 @@ const Search = () => {
                                  Prepayment : Rp.
                                  {item.price}
                               </Text>
-                              <Text color={'green.800'}>{item.status}</Text>
+                              <Text
+                                 color={
+                                    item.status === 'Available'
+                                       ? 'green.800'
+                                       : 'red.800'
+                                 }>
+                                 {item.status}
+                              </Text>
                            </VStack>
                         </HStack>
                      </Button>

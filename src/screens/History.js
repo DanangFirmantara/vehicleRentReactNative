@@ -81,10 +81,10 @@ const History = () => {
             <FlatList
                data={data}
                height={150}
-               renderItem={({item}) => {
+               renderItem={({ item }) => {
                   return (
                      <Pressable>
-                        {({isHovered, isFocused, isPressed}) => {
+                        {({ isHovered, isFocused, isPressed }) => {
                            return (
                               <Box
                                  py="2"
@@ -118,7 +118,7 @@ const History = () => {
             <FlatList
                data={history}
                showsVerticalScrollIndicator={false}
-               renderItem={({item}) => {
+               renderItem={({ item }) => {
                   return (
                      <Box my={2}>
                         <HStack alignItems={'center'} key={item.id}>

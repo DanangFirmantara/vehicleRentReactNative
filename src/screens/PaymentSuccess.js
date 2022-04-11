@@ -10,9 +10,19 @@ import {
 } from 'native-base';
 import ImgVehicle from '../assets/image/vehicle.png';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 const PaymentSuccess = () => {
    const navigation = useNavigation();
+   const payment = useSelector((state) => state.payment);
+   const vehicle = useSelector((state) => state.vehicle);
+   const reservation = useSelector((state) => state.reservation);
+
+   const diffInMs =
+      new Date(payment.data?.rentEndDate) -
+      new Date(payment.data?.rentStartDate);
+   const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
+
    const onPayment = () => {
       navigation.navigate('FinishPayment');
    };
@@ -20,7 +30,7 @@ const PaymentSuccess = () => {
       <Container>
          <Box justifyContent={'center'} alignItems={'center'} py={4} pb={6}>
             <NvText fontSize={24} fontWeight={'bold'} color={'green.800'}>
-               Payment Success !
+               {payment.successMsg}
             </NvText>
          </Box>
          <Image
@@ -32,17 +42,24 @@ const PaymentSuccess = () => {
          />
          <Box flex={1} />
          <VStack space={2} my={4}>
-            <NvText fontWeight={16}>2 Vespa</NvText>
-            <NvText fontWeight={16}>Prepayment (no tax)</NvText>
-            <NvText fontWeight={16}>4 days</NvText>
-            <NvText fontWeight={16}>Jan 18 2021 to Jan 22 2021</NvText>
+            <NvText fontWeight={16}>
+               {payment.data?.quantity} {vehicle.detail?.name}
+            </NvText>
+            <NvText fontWeight={16}>{reservation.data?.payment}</NvText>
+            <NvText fontWeight={16}>{diffInDays} days</NvText>
+            <NvText fontWeight={16}>
+               {payment.data?.rentStartDate} to {payment.data?.rentEndDate}
+            </NvText>
          </VStack>
          <Divider my={2} height={0.5} />
          <VStack space={2} my={4}>
-            <NvText>ID: 90812391238</NvText>
-            <NvText>Jessice Jane (jjane@mail.com) </NvText>
+            <NvText>ID: {reservation.data?.id}</NvText>
             <NvText>
-               089123891239 (
+               {reservation.data?.name} {reservation.data?.lastName} (
+               {reservation.data?.email}){' '}
+            </NvText>
+            <NvText>
+               {reservation.data.contact} (
                <NvText fontWeight={'bold'} color={'green.800'}>
                   active
                </NvText>
@@ -61,7 +78,7 @@ const PaymentSuccess = () => {
                color={'rgba(57, 57, 57, 1)'}
                fontWeight={'bold'}
                fontSize={18}>
-               Total : 245.000
+               Total : {payment.data?.total}
             </NvText>
          </Button>
       </Container>
