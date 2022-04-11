@@ -1,9 +1,19 @@
 import { View } from 'react-native';
 import React, { useState } from 'react';
 import Container from '../components/Container';
-import { Button, Input, VStack, Text as NvText, Box } from 'native-base';
+import {
+   Button,
+   Input,
+   VStack,
+   Text as NvText,
+   Box,
+   Select,
+   CheckIcon,
+} from 'native-base';
 import Stepper from '../components/Stepper';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { postReservation } from '../redux/actions/reservation';
 
 const Reservation = () => {
    const [idCard, setIdCard] = useState();
@@ -11,10 +21,14 @@ const Reservation = () => {
    const [lastName, setLastName] = useState();
    const [contact, setContact] = useState();
    const [email, setEmail] = useState();
-   const [paymentType, setPaymentType] = useState();
+   const [service, setService] = useState();
    const navigation = useNavigation();
+   const dispatch = useDispatch();
    const onOrder = () => {
-      console.log(idCard, name, lastName, contact, email, paymentType);
+      console.log(idCard, name, lastName, contact, email, service);
+      dispatch(
+         postReservation(idCard, name, lastName, contact, email, service),
+      );
       navigation.navigate('OrderDetail');
    };
 
@@ -32,7 +46,7 @@ const Reservation = () => {
                   height={60}
                   paddingLeft={5}
                   fontSize={12}
-                  fontWeight="bold"
+                  fontWeight={'bold'}
                   placeholder={'ID Card Number'}
                   placeholderTextColor="rgba(57, 57, 57, 1)"
                   onChangeText={(text) => setIdCard(text)}
@@ -95,18 +109,39 @@ const Reservation = () => {
                />
             </View>
             <View>
-               <Input
+               <Box
                   bg="rgba(223, 222, 222, 0.5)"
-                  color="rgba(57, 57, 57, 1)"
+                  color="rgba(57, 57, 57, 0.8)"
                   variant="filled"
-                  paddingLeft={5}
-                  height={60}
-                  fontSize={12}
-                  fontWeight="bold"
-                  placeholder={'Payment Type'}
-                  placeholderTextColor="rgba(57, 57, 57, 1)"
-                  onChangeText={(text) => setPaymentType(text)}
-               />
+                  px={2}
+                  placeholder={'1 Day'}
+                  height={60}>
+                  <Select
+                     selectedValue={service}
+                     accessibilityLabel="Choose Service"
+                     placeholder="Payment Type"
+                     placeholderTextColor="rgba(57, 57, 57, 1)"
+                     fontSize={12}
+                     fontWeight="bold"
+                     _selectedItem={{
+                        bg: 'rgba(255, 205, 97, 1)',
+                        endIcon: (
+                           <CheckIcon size="5" color={'rgba(57, 57, 57, 1)'} />
+                        ),
+                     }}
+                     mt={1}
+                     onValueChange={(itemValue) => setService(itemValue)}>
+                     <Select.Item label="Prepayment (not tax)" value={1} />
+                     <Select.Item
+                        label="Pay at the end (include tax)"
+                        value={2}
+                     />
+                     <Select.Item
+                        label="Partial payment (include tax)"
+                        value={3}
+                     />
+                  </Select>
+               </Box>
             </View>
          </VStack>
          <Button

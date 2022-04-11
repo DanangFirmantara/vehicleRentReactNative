@@ -12,10 +12,25 @@ import {
 import Stepper from '../components/Stepper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { finishPayment } from '../redux/actions/payment';
 
 const FinishPayment = () => {
    const navigation = useNavigation();
+   const payment = useSelector((state) => state.payment);
+   const reservation = useSelector((state) => state.reservation);
+   const vehicle = useSelector((state) => state.vehicle);
+   const auth = useSelector((state) => state.auth);
+   const dispatch = useDispatch();
    const onFinishPayment = () => {
+      dispatch(
+         finishPayment(
+            payment.data.id,
+            payment.data.total,
+            payment.data.codePayment,
+            auth.token,
+         ),
+      );
       navigation.navigate('PaymentSuccess');
    };
    return (
@@ -30,7 +45,7 @@ const FinishPayment = () => {
                      Payment Code
                   </Text>
                   <Text fontWeight={'bold'} fontSize={36}>
-                     90887620
+                     {payment.data?.codePayment}
                   </Text>
                   <Text
                      fontSize={13}
@@ -67,10 +82,13 @@ const FinishPayment = () => {
                      justifyContent={'center'}
                      alignItems={'center'}>
                      <Text fontWeight={'bold'} fontSize={16}>
-                        Booking code : <Text color={'green.800'}>VSP09875</Text>
+                        Booking code :{' '}
+                        <Text color={'green.800'}>
+                           {reservation.data.bookedCode}
+                        </Text>
                      </Text>
                      <Text color={'rgba(97, 97, 103, 1)'} fontSize={13}>
-                        Use booking code to pick up your vespa
+                        Use booking code to pick up your {vehicle.detail.name}
                      </Text>
 
                      <Button
@@ -90,15 +108,20 @@ const FinishPayment = () => {
                </Center>
                <VStack>
                   <Text fontSize={16}>Order details :</Text>
-                  <Text fontSize={16}>2 Vespa</Text>
-                  <Text fontSize={16}>Prepayment (not tax)</Text>
+                  <Text fontSize={16}>
+                     {payment.data.quantity} {vehicle.detail.name}
+                  </Text>
+                  <Text fontSize={16}>{reservation.data.payment}</Text>
                   <Text fontSize={16}>4 days</Text>
-                  <Text fontSize={16}>Jan 18 to Jan 22 2021</Text>
+                  <Text fontSize={16}>
+                     {payment.data?.rentStartDate} to{' '}
+                     {payment.data?.rentEndDate}
+                  </Text>
                </VStack>
                <Divider height={0.5} my={4} />
                <Box flexDirection={'row'} alignItems={'center'}>
                   <Text flex={1} fontSize={36} fontWeight={'bold'}>
-                     Rp. 245.000
+                     Rp. {payment.data?.total}
                   </Text>
                   <Box mr={3}>
                      <Icon

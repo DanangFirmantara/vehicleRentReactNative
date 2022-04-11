@@ -10,10 +10,34 @@ import {
 } from 'native-base';
 import ImgVehicle from '../assets/image/vehicle.png';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { BACKEND_URL } from '../../env';
+import { postPayment } from '../redux/actions/payment';
 
 const OrderDetail = () => {
    const navigation = useNavigation();
+   const vehicle = useSelector((state) => state.vehicle);
+   const detail = vehicle.detail;
+   const auth = useSelector((state) => state.auth);
+   const reservation = useSelector((state) => state.reservation);
+   const dispatch = useDispatch();
    const onPayment = () => {
+      const rentStartDate = reservation.startDate;
+      const rentEndDate = reservation.endDate;
+      const vehicleId = detail.id;
+      const quantity = reservation.quantity;
+      const idReservation = reservation.data.id;
+      const token = auth.token;
+      dispatch(
+         postPayment(
+            rentStartDate,
+            rentEndDate,
+            vehicleId,
+            quantity,
+            idReservation,
+            token,
+         ),
+      );
       navigation.navigate('FinishPayment');
    };
    return (
@@ -21,28 +45,45 @@ const OrderDetail = () => {
          <Box justifyContent={'center'} alignItems={'center'} py={6}>
             <NvText fontSize={16}>Your booking code</NvText>
             <NvText fontSize={24} fontWeight={'bold'} color={'green.800'}>
-               VSP09875
+               {reservation.data ? reservation.data.bookedCode : ''}
             </NvText>
          </Box>
          <Image
-            source={ImgVehicle}
+            source={
+               detail.image
+                  ? {
+                       uri: detail.image.replace(
+                          'http://localhost:5000',
+                          BACKEND_URL,
+                       ),
+                    }
+                  : ImgVehicle
+            }
             alt="vehicle"
             width={'100%'}
             height={201}
             borderRadius={10}
+            resizeMode={'contain'}
          />
          <VStack space={2} my={4}>
-            <NvText fontWeight={16}>2 Vespa</NvText>
-            <NvText fontWeight={16}>Prepayment (no tax)</NvText>
+            <NvText fontWeight={16}>
+               {reservation.quantity} {detail.name}
+            </NvText>
+            <NvText fontWeight={16}>{reservation.data.payment}</NvText>
             <NvText fontWeight={16}>4 days</NvText>
-            <NvText fontWeight={16}>Jan 18 2021 to Jan 22 2021</NvText>
+            <NvText fontWeight={16}>
+               {reservation.startDate} to {reservation.endDate}
+            </NvText>
          </VStack>
          <Divider my={2} height={0.5} />
          <VStack space={2} my={4}>
-            <NvText>ID: 90812391238</NvText>
-            <NvText>Jessice Jane (jjane@mail.com) </NvText>
+            <NvText>ID: {reservation.data.id}</NvText>
             <NvText>
-               089123891239 (
+               {reservation.data.name} {reservation.data.lastName} (
+               {reservation.data.email}){' '}
+            </NvText>
+            <NvText>
+               {reservation.data.contact} (
                <NvText fontWeight={'bold'} color={'green.800'}>
                   active
                </NvText>

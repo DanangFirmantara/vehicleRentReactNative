@@ -4,6 +4,7 @@ const initialState = {
    isLoading: false,
    isError: false,
    pageInfo: {},
+   detail: {},
 };
 
 export const VEHICLE_GET = 'VEHICLE_GET';
@@ -13,11 +14,15 @@ export const VEHICLE_CLEARLOADING = 'VEHICLE_CLEARLOADING';
 export const VEHICLE_SETERR = 'VEHICLE_SETERR';
 export const VEHICLE_CLEARERR = 'VEHICLE_CLEARERR';
 export const VEHICLE_RESET = 'VEHICLE_RESET';
+export const VEHICLE_DETAIL = 'VEHICLE_DETAIL';
 
 const vehicle = (state = initialState, action) => {
    switch (action.type) {
       case VEHICLE_GET: {
          return { ...state, data: action.payload };
+      }
+      case VEHICLE_DETAIL: {
+         return { ...state, detail: action.payload };
       }
       case VEHICLE_GETPAGEINFO: {
          return { ...state, pageInfo: action.payload };

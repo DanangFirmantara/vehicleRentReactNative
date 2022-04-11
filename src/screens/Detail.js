@@ -1,3 +1,5 @@
+/* eslint-disable radix */
+/* eslint-disable no-shadow */
 import {
    HStack,
    Image,
@@ -5,10 +7,11 @@ import {
    VStack,
    Box,
    Button,
-   Input,
    Skeleton,
+   Select,
+   CheckIcon,
 } from 'native-base';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Container from '../components/Container';
 import imgDetail from '../assets/image/home.png';
 import IonIcon from 'react-native-vector-icons/Ionicons';
@@ -20,11 +23,23 @@ import FaIcon from 'react-native-vector-icons/FontAwesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDetail, getVehicle } from '../redux/actions/vehicle';
 import { BACKEND_URL } from '../../env';
+import DatePicker from 'react-native-date-picker';
+import {
+   decQuantity,
+   endDate,
+   incQuantity,
+   startDate,
+} from '../redux/actions/reservation';
 
 const Detail = ({ route }) => {
+   const [date, setDate] = useState(new Date());
+   const [open, setOpen] = useState(false);
+   const [service, setService] = useState('');
    const { id } = route.params;
    const vehicle = useSelector((state) => state.vehicle);
-   const data = vehicle.data;
+   const reservation = useSelector((state) => state.reservation);
+
+   const data = vehicle.detail;
    const dispatch = useDispatch();
    useEffect(() => {
       dispatch(getDetail(id));
@@ -33,8 +48,39 @@ const Detail = ({ route }) => {
       };
    }, [dispatch, id]);
    const navigation = useNavigation();
+   const increament = () => {
+      console.log('tambah');
+      console.log(reservation.quantity);
+      console.log(data.stock);
+      if (reservation.quantity < data.stock) {
+         dispatch(incQuantity());
+      }
+   };
+   const decreament = () => {
+      if (reservation.quantity > 0) {
+         dispatch(decQuantity());
+      }
+   };
+
+   const onReservation = () => {
+      console.log(service);
+      navigation.navigate('Reservation');
+   };
    return (
       <>
+         <DatePicker
+            modal
+            open={open}
+            date={date}
+            onConfirm={(date) => {
+               setOpen(false);
+               setDate(date);
+               dispatch(startDate(date.toISOString().slice(0, 10)));
+            }}
+            onCancel={() => {
+               setOpen(false);
+            }}
+         />
          <Box position={'relative'}>
             {!vehicle.isLoading && (
                <Image
@@ -187,56 +233,83 @@ const Detail = ({ route }) => {
                         <HStack space={4} alignItems={'center'}>
                            <Button
                               borderRadius={100}
-                              bg={'rgba(255, 205, 97, 1)'}>
+                              bg={'rgba(255, 205, 97, 1)'}
+                              onPress={decreament}>
                               <Text fontWeight={'extrabold'} fontSize={17}>
                                  -
                               </Text>
                            </Button>
                            <Text fontWeight={'extrabold'} fontSize={17}>
-                              2
+                              {reservation.quantity}
                            </Text>
                            <Button
                               borderRadius={100}
-                              bg={'rgba(255, 205, 97, 1)'}>
+                              bg={'rgba(255, 205, 97, 1)'}
+                              onPress={increament}>
                               <Text fontWeight={'extrabold'} fontSize={17}>
                                  +
                               </Text>
                            </Button>
                         </HStack>
                      </HStack>
+
                      <HStack my={2}>
-                        <Input
+                        <Pressable flex={1} onPress={() => setOpen(true)}>
+                           <Box
+                              bg="rgba(223, 222, 222, 0.5)"
+                              color="rgba(57, 57, 57, 0.8)"
+                              variant="filled"
+                              paddingLeft={5}
+                              fontSize={12}
+                              fontWeight="bold"
+                              placeholder={'Select date'}
+                              placeholderTextColor="rgba(57, 57, 57, 0.8)"
+                              flex={1}
+                              borderRadius={10}
+                              justifyContent={'center'}>
+                              <Text>date</Text>
+                           </Box>
+                        </Pressable>
+                        <Box
                            bg="rgba(223, 222, 222, 0.5)"
                            color="rgba(57, 57, 57, 0.8)"
                            variant="filled"
-                           paddingLeft={5}
-                           fontSize={12}
-                           fontWeight="bold"
-                           placeholder={'Select date'}
-                           placeholderTextColor="rgba(57, 57, 57, 0.8)"
-                           flex={1}
-                           borderRadius={10}
-                        />
-                        <Input
-                           bg="rgba(223, 222, 222, 0.5)"
-                           color="rgba(57, 57, 57, 0.8)"
-                           variant="filled"
-                           paddingLeft={5}
-                           fontSize={12}
-                           fontWeight="bold"
                            placeholder={'1 Day'}
                            w={20}
                            ml={4}
-                           placeholderTextColor="rgba(57, 57, 57, 0.8)"
-                           borderRadius={10}
-                        />
+                           borderRadius={10}>
+                           <Select
+                              selectedValue={service}
+                              accessibilityLabel="Choose Service"
+                              placeholder="Day"
+                              _selectedItem={{
+                                 bg: 'rgba(255, 205, 97, 1)',
+                                 endIcon: <CheckIcon size="5" />,
+                              }}
+                              mt={1}
+                              onValueChange={(itemValue) => {
+                                 date.setDate(
+                                    date.getDate() + parseInt(itemValue),
+                                 );
+                                 setService(itemValue);
+                                 dispatch(
+                                    endDate(date.toISOString().slice(0, 10)),
+                                 );
+                              }}>
+                              <Select.Item label="1 Day" value={1} />
+                              <Select.Item label="2 Day" value={2} />
+                              <Select.Item label="3 Day" value={3} />
+                              <Select.Item label="4 Day" value={4} />
+                              <Select.Item label="5 Day" value={5} />
+                           </Select>
+                        </Box>
                      </HStack>
                   </VStack>
                   <Button
                      height={50}
                      bg={'rgba(255, 205, 97, 1)'}
                      borderRadius={10}
-                     onPress={() => navigation.navigate('Reservation')}>
+                     onPress={onReservation}>
                      <Text
                         color={'rgba(57, 57, 57, 1)'}
                         fontWeight="bold"
