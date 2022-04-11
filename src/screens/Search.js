@@ -28,7 +28,9 @@ const Search = () => {
    const vehicleRedux = useSelector((state) => state.vehicle);
 
    useEffect(() => {
-      dispatch(getVehicle());
+      if (search === '') {
+         dispatch(getVehicle());
+      }
       dispatch(reservationClear());
    }, [search, dispatch]);
 
@@ -37,7 +39,11 @@ const Search = () => {
          <Box my={4}>
             <Input
                defaultValue={search}
-               onChangeText={(text) => setSearch(text)}
+               onChangeText={(text) => {
+                  setSearch(text);
+                  const param = { name: text };
+                  dispatch(getVehicle(param));
+               }}
                InputLeftElement={
                   <>
                      <Box mx={4}>

@@ -1,3 +1,4 @@
+import { dinamisUrl } from '../../helpers/dinamisUrl';
 import http from '../../helpers/http';
 import {
    VEHICLE_CLEARERR,
@@ -10,7 +11,7 @@ import {
    VEHICLE_DETAIL,
 } from '../reducers/vehicle';
 
-export const getVehicle = () => {
+export const getVehicle = (param) => {
    return async (dispatch) => {
       try {
          dispatch({
@@ -19,7 +20,8 @@ export const getVehicle = () => {
          dispatch({
             type: VEHICLE_CLEARERR,
          });
-         const { data } = await http().get('/vehicles?limit=100');
+         const url = dinamisUrl(param);
+         const { data } = await http().get(`/vehicles?limit=100&${url}`);
          dispatch({
             type: VEHICLE_GET,
             payload: data.results,
