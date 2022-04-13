@@ -110,10 +110,10 @@ const UpdateProfile = () => {
             <Input
                placeholder={'Name'}
                variant="underlined"
-               defaultValue={data.name}
+               defaultValue={data.fullName}
                onChangeText={(text) => {
                   console.log(text);
-                  setChange({ ...change, name: text });
+                  setChange({ ...change, fullName: text });
                }}
                borderBottomColor={'rgba(159, 159, 159, 1)'}
             />

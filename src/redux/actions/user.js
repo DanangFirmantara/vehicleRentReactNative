@@ -44,8 +44,8 @@ export const updateProfile = (token, dataUpdated) => {
       try {
          dispatch({ type: USER_SETLOADING });
          dispatch({ type: USER_CLEARERR });
-         console.log(token, 'ini token bg');
-         console.log(dataUpdated, 'ini data bg');
+         console.log(token, 'data token');
+         console.log(dataUpdated, 'data updated');
          let dataChange = [];
          if (dataUpdated.image) {
             dataChange.push({
@@ -63,7 +63,7 @@ export const updateProfile = (token, dataUpdated) => {
                });
             }
          });
-         console.log(dataChange, 'oi iko data datachange');
+         console.log(dataChange, 'data change');
          const { data } = await RNFetchBlob.fetch(
             'PATCH',
             `${BACKEND_URL}/users`,

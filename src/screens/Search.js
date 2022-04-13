@@ -22,7 +22,7 @@ import { BACKEND_URL } from '../../env';
 import { reservationClear } from '../redux/actions/reservation';
 
 const Search = () => {
-   const [search, setSearch] = useState();
+   const [search, setSearch] = useState('');
    const navigation = useNavigation();
    const dispatch = useDispatch();
    const vehicleRedux = useSelector((state) => state.vehicle);
@@ -156,14 +156,7 @@ const Search = () => {
                                  fontWeight={'bold'}>
                                  {item.name}
                               </Text>
-                              <Text>
-                                 {item.image
-                                    ? item.image.replace(
-                                         'http://localhost:5000',
-                                         BACKEND_URL,
-                                      )
-                                    : 'null'}
-                              </Text>
+                              <Text>{item.description}</Text>
                               <Text
                                  color={'rgba(57, 57, 57, 1)'}
                                  fontWeight={'bold'}>

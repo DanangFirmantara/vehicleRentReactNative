@@ -5,9 +5,9 @@ import {
    TouchableOpacity,
    Text,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import imgBackground from '../assets/image/sign-up.png';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import {
    Box,
    Button,
@@ -20,8 +20,8 @@ import {
 } from 'native-base';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import ButtonForm from '../components/ButtonForm';
-import {useDispatch, useSelector} from 'react-redux';
-import {clearMsg, doSignUp} from '../redux/actions/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearMsg, doSignUp } from '../redux/actions/auth';
 
 const SignUp = () => {
    const [username, setUsername] = useState();
@@ -39,7 +39,7 @@ const SignUp = () => {
 
    const handleClick = () => setShow(!show);
    const navigation = useNavigation();
-   const auth = useSelector(state => state.auth);
+   const auth = useSelector((state) => state.auth);
 
    const onSignup = () => {
       if (!username || !password || !contact || !email) {
@@ -108,7 +108,7 @@ const SignUp = () => {
                      fontWeight="bold"
                      placeholder={'Username'}
                      placeholderTextColor="white"
-                     onChangeText={text => setUsername(text)}
+                     onChangeText={(text) => setUsername(text)}
                   />
                </View>
                <View>
@@ -121,7 +121,7 @@ const SignUp = () => {
                      fontWeight="bold"
                      placeholder={'Contact'}
                      placeholderTextColor="white"
-                     onChangeText={text => setContact(text)}
+                     onChangeText={(text) => setContact(text)}
                   />
                </View>
                <View>
@@ -134,7 +134,7 @@ const SignUp = () => {
                      fontWeight="bold"
                      placeholder={'Email'}
                      placeholderTextColor="white"
-                     onChangeText={text => setEmail(text)}
+                     onChangeText={(text) => setEmail(text)}
                   />
                </View>
                <View>
@@ -147,7 +147,7 @@ const SignUp = () => {
                      fontWeight="bold"
                      placeholder={'Password'}
                      placeholderTextColor="white"
-                     onChangeText={text => setPassword(text)}
+                     onChangeText={(text) => setPassword(text)}
                      type={show ? 'text' : 'password'}
                      InputRightElement={
                         <Box marginRight={4}>

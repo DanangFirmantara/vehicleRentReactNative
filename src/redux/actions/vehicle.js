@@ -2,16 +2,16 @@ import { dinamisUrl } from '../../helpers/dinamisUrl';
 import http from '../../helpers/http';
 import {
    VEHICLE_CLEARERR,
-   VEHICLE_GET,
    VEHICLE_GETPAGEINFO,
    VEHICLE_SETLOADING,
    VEHICLE_CLEARLOADING,
    VEHICLE_RESET,
    VEHICLE_SETERR,
    VEHICLE_DETAIL,
+   VEHICLE_GETDATA,
 } from '../reducers/vehicle';
 
-export const getVehicle = (param) => {
+export const getVehicle = (param = '') => {
    return async (dispatch) => {
       try {
          dispatch({
@@ -22,8 +22,9 @@ export const getVehicle = (param) => {
          });
          const url = dinamisUrl(param);
          const { data } = await http().get(`/vehicles?limit=100&${url}`);
+         console.log(data, param);
          dispatch({
-            type: VEHICLE_GET,
+            type: VEHICLE_GETDATA,
             payload: data.results,
          });
          dispatch({

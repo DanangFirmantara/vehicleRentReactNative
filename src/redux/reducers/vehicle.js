@@ -7,7 +7,7 @@ const initialState = {
    detail: {},
 };
 
-export const VEHICLE_GET = 'VEHICLE_GET';
+export const VEHICLE_GETDATA = 'VEHICLE_GETDATA';
 export const VEHICLE_GETPAGEINFO = 'VEHICLE_GETPAGEINFO';
 export const VEHICLE_SETLOADING = 'VEHICLE_SETLOADING';
 export const VEHICLE_CLEARLOADING = 'VEHICLE_CLEARLOADING';
@@ -18,7 +18,7 @@ export const VEHICLE_DETAIL = 'VEHICLE_DETAIL';
 
 const vehicle = (state = initialState, action) => {
    switch (action.type) {
-      case VEHICLE_GET: {
+      case VEHICLE_GETDATA: {
          return { ...state, data: action.payload };
       }
       case VEHICLE_DETAIL: {
