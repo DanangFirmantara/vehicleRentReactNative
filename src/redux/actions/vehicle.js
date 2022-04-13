@@ -9,6 +9,7 @@ import {
    VEHICLE_SETERR,
    VEHICLE_DETAIL,
    VEHICLE_GETDATA,
+   VEHICLE_GETDATACATEGORY,
 } from '../reducers/vehicle';
 
 export const getVehicle = (param = '') => {
@@ -99,5 +100,40 @@ export const vehicleLoading = () => {
       dispatch({
          type: VEHICLE_SETLOADING,
       });
+   };
+};
+
+export const getVehicleCategory = (idCategory) => {
+   return async (dispatch) => {
+      try {
+         dispatch({
+            type: VEHICLE_SETLOADING,
+         });
+         dispatch({
+            type: VEHICLE_CLEARERR,
+         });
+         const { data } = await http().get(`/list?filterBy=${idCategory}`);
+         dispatch({
+            type: VEHICLE_GETDATACATEGORY,
+            payload: data.results,
+         });
+         dispatch({
+            type: VEHICLE_CLEARLOADING,
+         });
+      } catch (err) {
+         let payload = '';
+         if (err.reponse) {
+            payload = err.response.data.message;
+         } else {
+            payload = err.message;
+         }
+         dispatch({
+            type: VEHICLE_SETERR,
+            payload: payload,
+         });
+         dispatch({
+            type: VEHICLE_CLEARLOADING,
+         });
+      }
    };
 };

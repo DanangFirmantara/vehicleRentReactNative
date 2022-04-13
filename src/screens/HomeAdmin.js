@@ -16,23 +16,29 @@ import ButtonForm from '../components/ButtonForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProfile } from '../redux/actions/user';
 import { getCategory } from '../redux/actions/category';
+import { getVehicleCategory } from '../redux/actions/vehicle';
+import defaultImg from '../assets/image/profile.png';
 
 const HomeAdmin = () => {
    const dispatch = useDispatch();
    const auth = useSelector((state) => state.auth);
    const user = useSelector((state) => state.user);
    const category = useSelector((state) => state.category);
+   const vehicle = useSelector((state) => state.vehicle);
    const dataUser = user.data;
    useEffect(() => {
       if (user.data.length === 0) {
          dispatch(getProfile(auth.token));
       }
-      if (category.data.length !== 0) {
-         category.data.map((item) => {
-            console.log(item.id);
-         });
-      } else {
-         dispatch(getCategory());
+      if (vehicle.dataCategory.length === 0) {
+         if (category.data.length !== 0) {
+            category.data.map(async (item) => {
+               console.log(item.id);
+               await dispatch(getVehicleCategory(item.id));
+            });
+         } else {
+            dispatch(getCategory());
+         }
       }
    }, [dispatch]);
    const data = [
@@ -72,7 +78,7 @@ const HomeAdmin = () => {
                   alignItems={'center'}
                   colorScheme={'pallet.3'}>
                   <Text
-                     color={'pallet.2'}
+                     color={'white'}
                      fontWeight={'bold'}
                      fontSize={18}
                      alignItems={'center'}>
@@ -88,19 +94,6 @@ const HomeAdmin = () => {
                      View More
                   </Text>
                </HStack>
-               {category.data.length > 0 &&
-                  category.data.map((item) => {
-                     return (
-                        <HStack key={item.id}>
-                           <Text flex={1} fontWeight="bold">
-                              {item.name}
-                           </Text>
-                           <Text underline={'true'} fontWeight="bold">
-                              View More
-                           </Text>
-                        </HStack>
-                     );
-                  })}
                <Box marginY={4} flex={1}>
                   <FlatList
                      horizontal={true}
@@ -122,7 +115,61 @@ const HomeAdmin = () => {
                      )}
                   />
                </Box>
-               {dataUser.role === 'admin' && (
+               {category.data.length > 0 &&
+                  category.data.map((temp) => {
+                     return (
+                        <Box key={temp.id}>
+                           <HStack>
+                              <Text flex={1} fontWeight="bold">
+                                 {temp.name}
+                              </Text>
+                              <Text underline={'true'} fontWeight="bold">
+                                 View More
+                              </Text>
+                           </HStack>
+                           <Box marginY={4}>
+                              <FlatList
+                                 horizontal={true}
+                                 data={vehicle.dataCategory}
+                                 showsHorizontalScrollIndicator={false}
+                                 keyExtractor={(item) => item.id}
+                                 renderItem={({ item }) => {
+                                    return (
+                                       <Box>
+                                          {temp.id === item.idCategory && (
+                                             <>
+                                                <HStack
+                                                   justifyContent={
+                                                      'space-between'
+                                                   }>
+                                                   <Image
+                                                      source={
+                                                         item.image
+                                                            ? {
+                                                                 uri: item.image,
+                                                              }
+                                                            : defaultImg
+                                                      }
+                                                      alt={String(item.id)}
+                                                      width={265}
+                                                      minHeight={168}
+                                                      mr={15}
+                                                      resizeMode={'contain'}
+                                                      borderRadius={15}
+                                                   />
+                                                </HStack>
+                                             </>
+                                          )}
+                                       </Box>
+                                    );
+                                 }}
+                              />
+                           </Box>
+                        </Box>
+                     );
+                  })}
+
+               {dataUser.role === 'Admin' && (
                   <ButtonForm
                      color="rgba(57, 57, 57, 1)"
                      textColor="rgba(255, 205, 97, 1)"

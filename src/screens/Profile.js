@@ -6,21 +6,21 @@ import Container from '../components/Container';
 import TopBarUser from '../components/TopBarUser';
 import { doLogout } from '../redux/actions/auth';
 import { useNavigation } from '@react-navigation/native';
-// import { vehicleReset } from '../redux/actions/vehicle';
-// import PushNotification from 'react-native-push-notification';
-// import { reservationClear } from '../redux/actions/reservation';
+import { vehicleReset } from '../redux/actions/vehicle';
+import PushNotification from 'react-native-push-notification';
+import { reservationClear } from '../redux/actions/reservation';
 
 const Profile = () => {
    const dispatch = useDispatch();
    const onLogout = () => {
       dispatch(doLogout());
    };
-   // const onResetVehicle = () => {
-   //    dispatch(vehicleReset());
-   // };
-   // const onResetReservation = () => {
-   //    dispatch(reservationClear());
-   // };
+   const onResetVehicle = () => {
+      dispatch(vehicleReset());
+   };
+   const onResetReservation = () => {
+      dispatch(reservationClear());
+   };
    const data = [
       {
          menu: 'Your Favorite',
@@ -40,14 +40,14 @@ const Profile = () => {
       },
    ];
    const navigation = useNavigation();
-   // const localNotif = () => {
-   //    PushNotification.localNotification({
-   //       channelId: 'profile-notif',
-   //       title: 'profile-notif',
-   //       message: 'Tes Notif',
-   //       playSound: true,
-   //    });
-   // };
+   const localNotif = () => {
+      PushNotification.localNotification({
+         channelId: 'profile-notif',
+         title: 'profile-notif',
+         message: 'Tes Notif',
+         playSound: true,
+      });
+   };
    return (
       <Container>
          <TopBarUser />
@@ -82,7 +82,7 @@ const Profile = () => {
             }}
          />
          <Box flex={1} />
-         {/* <Pressable onPress={localNotif}>
+         <Pressable onPress={localNotif}>
             {({ isHovered, isFocused, isPressed }) => {
                return (
                   <Box
@@ -104,8 +104,8 @@ const Profile = () => {
                   </Box>
                );
             }}
-         </Pressable> */}
-         {/* <Button
+         </Pressable>
+         <Button
             height={50}
             bg={'rgba(255, 205, 97, 1)'}
             color={'rgba(57, 57, 57, 1)'}
@@ -130,7 +130,7 @@ const Profile = () => {
             <Text fontSize={17} fontWeight={'bold'}>
                Reset Vehicle
             </Text>
-         </Button> */}
+         </Button>
          <Button
             height={50}
             bg={'rgba(255, 205, 97, 1)'}

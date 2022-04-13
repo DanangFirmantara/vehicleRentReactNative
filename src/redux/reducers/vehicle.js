@@ -5,9 +5,11 @@ const initialState = {
    isError: false,
    pageInfo: {},
    detail: {},
+   dataCategory: [],
 };
 
 export const VEHICLE_GETDATA = 'VEHICLE_GETDATA';
+export const VEHICLE_GETDATACATEGORY = 'VEHICLE_GETDATACATEGORY';
 export const VEHICLE_GETPAGEINFO = 'VEHICLE_GETPAGEINFO';
 export const VEHICLE_SETLOADING = 'VEHICLE_SETLOADING';
 export const VEHICLE_CLEARLOADING = 'VEHICLE_CLEARLOADING';
@@ -20,6 +22,12 @@ const vehicle = (state = initialState, action) => {
    switch (action.type) {
       case VEHICLE_GETDATA: {
          return { ...state, data: action.payload };
+      }
+      case VEHICLE_GETDATACATEGORY: {
+         return {
+            ...state,
+            dataCategory: [...state.dataCategory, ...action.payload],
+         };
       }
       case VEHICLE_DETAIL: {
          return { ...state, detail: action.payload };

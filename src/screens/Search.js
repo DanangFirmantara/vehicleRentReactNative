@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
    Box,
    HStack,
@@ -18,7 +19,6 @@ import { useNavigation } from '@react-navigation/native';
 import imgVehicle from '../assets/image/profile.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { getVehicle } from '../redux/actions/vehicle';
-import { BACKEND_URL } from '../../env';
 import { reservationClear } from '../redux/actions/reservation';
 
 const Search = () => {
@@ -28,6 +28,9 @@ const Search = () => {
    const vehicleRedux = useSelector((state) => state.vehicle);
 
    useEffect(() => {
+      if (vehicleRedux.data.length === 0) {
+         dispatch(getVehicle());
+      }
       if (search === '') {
          dispatch(getVehicle());
       }
@@ -136,10 +139,7 @@ const Search = () => {
                                  source={
                                     item.image
                                        ? {
-                                            uri: item.image.replace(
-                                               'http://localhost:5000',
-                                               BACKEND_URL,
-                                            ),
+                                            uri: item.image,
                                          }
                                        : imgVehicle
                                  }
