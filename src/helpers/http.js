@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {BACKEND_URL} from '../../env';
+import { BACKEND_URL } from '../../env';
 
 const http = (token, useUpload = false) => {
    const headers = {};

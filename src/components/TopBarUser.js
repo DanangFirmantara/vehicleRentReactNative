@@ -4,7 +4,6 @@ import imgProfile from '../assets/image/profile.png';
 import { HStack, Image, Text } from 'native-base';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProfile } from '../redux/actions/user';
-import { BACKEND_URL } from '../../env';
 const TopBarUser = () => {
    const dispatch = useDispatch();
    const auth = useSelector((state) => state.auth);
@@ -21,10 +20,7 @@ const TopBarUser = () => {
             source={
                data.image
                   ? {
-                       uri: data.image.replace(
-                          'http://localhost:5000',
-                          BACKEND_URL,
-                       ),
+                       uri: data.image,
                     }
                   : imgProfile
             }

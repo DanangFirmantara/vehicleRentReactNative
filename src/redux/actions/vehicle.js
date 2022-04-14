@@ -1,16 +1,18 @@
+import { dinamisUrl } from '../../helpers/dinamisUrl';
 import http from '../../helpers/http';
 import {
    VEHICLE_CLEARERR,
-   VEHICLE_GET,
    VEHICLE_GETPAGEINFO,
    VEHICLE_SETLOADING,
    VEHICLE_CLEARLOADING,
    VEHICLE_RESET,
    VEHICLE_SETERR,
    VEHICLE_DETAIL,
+   VEHICLE_GETDATA,
+   VEHICLE_GETDATACATEGORY,
 } from '../reducers/vehicle';
 
-export const getVehicle = () => {
+export const getVehicle = (param = '') => {
    return async (dispatch) => {
       try {
          dispatch({
@@ -19,9 +21,11 @@ export const getVehicle = () => {
          dispatch({
             type: VEHICLE_CLEARERR,
          });
-         const { data } = await http().get('/vehicles?limit=100');
+         const url = dinamisUrl(param);
+         const { data } = await http().get(`/vehicles?limit=100&${url}`);
+         console.log(data, param);
          dispatch({
-            type: VEHICLE_GET,
+            type: VEHICLE_GETDATA,
             payload: data.results,
          });
          dispatch({
@@ -96,5 +100,40 @@ export const vehicleLoading = () => {
       dispatch({
          type: VEHICLE_SETLOADING,
       });
+   };
+};
+
+export const getVehicleCategory = (idCategory) => {
+   return async (dispatch) => {
+      try {
+         dispatch({
+            type: VEHICLE_SETLOADING,
+         });
+         dispatch({
+            type: VEHICLE_CLEARERR,
+         });
+         const { data } = await http().get(`/list?filterBy=${idCategory}`);
+         dispatch({
+            type: VEHICLE_GETDATACATEGORY,
+            payload: data.results,
+         });
+         dispatch({
+            type: VEHICLE_CLEARLOADING,
+         });
+      } catch (err) {
+         let payload = '';
+         if (err.reponse) {
+            payload = err.response.data.message;
+         } else {
+            payload = err.message;
+         }
+         dispatch({
+            type: VEHICLE_SETERR,
+            payload: payload,
+         });
+         dispatch({
+            type: VEHICLE_CLEARLOADING,
+         });
+      }
    };
 };

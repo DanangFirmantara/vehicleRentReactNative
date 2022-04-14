@@ -22,7 +22,6 @@ import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import FaIcon from 'react-native-vector-icons/FontAwesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDetail, getVehicle } from '../redux/actions/vehicle';
-import { BACKEND_URL } from '../../env';
 import DatePicker from 'react-native-date-picker';
 import {
    decQuantity,
@@ -87,10 +86,7 @@ const Detail = ({ route }) => {
                   source={
                      data.image
                         ? {
-                             uri: data.image.replace(
-                                'http://localhost:5000',
-                                BACKEND_URL,
-                             ),
+                             uri: data.image,
                           }
                         : imgDetail
                   }
