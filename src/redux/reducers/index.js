@@ -8,6 +8,7 @@ import reservation from './reservation';
 import payment from './payment';
 import history from './history';
 import category from './category';
+import location from './location';
 
 const persistAuth = {
    key: 'auth',
@@ -43,6 +44,10 @@ const persistCategory = {
    storage: AsyncStorage,
 };
 
+const persistLocaton = {
+   key: 'location',
+   storage: AsyncStorage,
+};
 const rootReducers = combineReducers({
    auth: persistReducer(persistAuth, auth),
    vehicle: persistReducer(persistVehicle, vehicle),
@@ -51,6 +56,7 @@ const rootReducers = combineReducers({
    payment: persistReducer(persistPayment, payment),
    history: persistReducer(persistHistory, history),
    category: persistReducer(persistCategory, category),
+   location: persistReducer(persistLocaton, location),
 });
 
 export default rootReducers;

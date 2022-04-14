@@ -27,18 +27,19 @@ const HomeAdmin = () => {
    const vehicle = useSelector((state) => state.vehicle);
    const dataUser = user.data;
    useEffect(() => {
-      if (user.data.length === 0) {
+      if (!user.data.hasOwnProperty('role')) {
          dispatch(getProfile(auth.token));
       }
-      if (vehicle.dataCategory.length === 0) {
-         if (category.data.length !== 0) {
+      console.log(user.data);
+      if (category.data.length !== 0) {
+         if (vehicle.dataCategory.length === 0) {
             category.data.map(async (item) => {
                console.log(item.id);
                await dispatch(getVehicleCategory(item.id));
             });
-         } else {
-            dispatch(getCategory());
          }
+      } else {
+         dispatch(getCategory());
       }
    }, [dispatch]);
    const data = [

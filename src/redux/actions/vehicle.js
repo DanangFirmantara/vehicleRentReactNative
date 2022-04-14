@@ -1,3 +1,5 @@
+import RNFetchBlob from 'rn-fetch-blob';
+import { BACKEND_URL } from '../../../env';
 import { dinamisUrl } from '../../helpers/dinamisUrl';
 import http from '../../helpers/http';
 import {
@@ -10,6 +12,7 @@ import {
    VEHICLE_DETAIL,
    VEHICLE_GETDATA,
    VEHICLE_GETDATACATEGORY,
+   VEHICLE_SETSUCCESS,
 } from '../reducers/vehicle';
 
 export const getVehicle = (param = '') => {
@@ -123,6 +126,69 @@ export const getVehicleCategory = (idCategory) => {
       } catch (err) {
          let payload = '';
          if (err.reponse) {
+            payload = err.response.data.message;
+         } else {
+            payload = err.message;
+         }
+         dispatch({
+            type: VEHICLE_SETERR,
+            payload: payload,
+         });
+         dispatch({
+            type: VEHICLE_CLEARLOADING,
+         });
+      }
+   };
+};
+
+export const addVehicle = (token, dataAdded) => {
+   return async (dispatch) => {
+      try {
+         dispatch({ type: VEHICLE_SETLOADING });
+         dispatch({ type: VEHICLE_CLEARERR });
+         console.log(token, 'data token');
+         console.log(dataAdded, 'data updated');
+         let dataChange = [];
+         if (dataAdded.image) {
+            dataChange.push({
+               name: 'image',
+               filename: dataAdded.image.fileName,
+               type: dataAdded.image.type,
+               data: RNFetchBlob.wrap(dataAdded.image.uri),
+            });
+         }
+         Object.keys(dataAdded).forEach((item) => {
+            if (item) {
+               dataChange.push({
+                  name: `${item}`,
+                  data: String(dataAdded[item]),
+               });
+            }
+         });
+         console.log(dataChange, 'data change');
+         const { data } = await RNFetchBlob.fetch(
+            'POST',
+            `${BACKEND_URL}/vehicles`,
+            {
+               Authorization: `Bearer ${token}`,
+               'Content-Type': 'multipart/form-data',
+            },
+            dataChange,
+         );
+         console.log(JSON.parse(data).results[0]);
+         dispatch({
+            type: VEHICLE_DETAIL,
+            payload: JSON.parse(data).results[0],
+         });
+         dispatch({
+            type: VEHICLE_SETSUCCESS,
+            payload: JSON.parse(data).message,
+         });
+         console.log(data, 'ini data dari backend bg');
+         dispatch({ type: VEHICLE_CLEARLOADING });
+      } catch (err) {
+         let payload = '';
+         if (err.response) {
             payload = err.response.data.message;
          } else {
             payload = err.message;
