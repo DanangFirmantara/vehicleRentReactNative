@@ -1,6 +1,7 @@
 const initialState = {
    data: [],
-   errorMsg: false,
+   errorMsg: '',
+   successMsg: '',
    isLoading: false,
    isError: false,
    pageInfo: {},
@@ -15,8 +16,11 @@ export const VEHICLE_SETLOADING = 'VEHICLE_SETLOADING';
 export const VEHICLE_CLEARLOADING = 'VEHICLE_CLEARLOADING';
 export const VEHICLE_SETERR = 'VEHICLE_SETERR';
 export const VEHICLE_CLEARERR = 'VEHICLE_CLEARERR';
+export const VEHICLE_SETSUCCESS = 'VEHICLE_SETSUCCESS';
+export const VEHICLE_CLEARSUCCESS = 'VEHICLE_CLEARSUCCESS';
 export const VEHICLE_RESET = 'VEHICLE_RESET';
 export const VEHICLE_DETAIL = 'VEHICLE_DETAIL';
+export const VEHICLE_CLEARMSG = 'VEHICLE_CLEARMSG';
 
 const vehicle = (state = initialState, action) => {
    switch (action.type) {
@@ -41,6 +45,12 @@ const vehicle = (state = initialState, action) => {
       case VEHICLE_CLEARLOADING: {
          return { ...state, isLoading: false };
       }
+      case VEHICLE_SETSUCCESS: {
+         return { ...state, successMsg: action.payload };
+      }
+      case VEHICLE_CLEARSUCCESS: {
+         return { ...state, successMsg: '' };
+      }
       case VEHICLE_SETERR: {
          return { ...state, isError: true, errorMsg: action.payload };
       }
@@ -49,6 +59,9 @@ const vehicle = (state = initialState, action) => {
       }
       case VEHICLE_RESET: {
          return { ...initialState };
+      }
+      case VEHICLE_CLEARMSG: {
+         return { ...state, errorMsg: '', successMsg: '' };
       }
       default: {
          return { ...state };

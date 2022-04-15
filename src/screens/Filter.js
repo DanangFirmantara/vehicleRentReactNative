@@ -1,4 +1,4 @@
-import {Box, Button, HStack, Input, Switch, Text} from 'native-base';
+import { Box, Button, HStack, Input, Switch, Text } from 'native-base';
 import React from 'react';
 import Container from '../components/Container';
 import Icon from 'react-native-vector-icons/Entypo';
@@ -40,7 +40,7 @@ const Filter = () => {
    ];
    return (
       <Container>
-         {input.map(item => {
+         {input.map((item) => {
             return (
                <HStack alignItems={'center'} key={item.name}>
                   <Text flex={1}>{item.title}</Text>

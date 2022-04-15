@@ -10,6 +10,7 @@ export const CATEGORY_SETERROR = 'CATEGORY_SETERROR';
 export const CATEGORY_CLEARERROR = 'CATEGORY_CLEARERROR';
 export const CATEGORY_GETDATA = 'CATEGORY_GETDATA';
 export const CATEGORY_CLEARDATA = 'CATEGORY_CLEARDATA';
+export const CATEGORY_CLEARMSG = 'CATEGORY_CLEARMSG';
 
 const category = (state = initialState, action) => {
    switch (action.type) {
@@ -30,6 +31,9 @@ const category = (state = initialState, action) => {
       }
       case CATEGORY_CLEARDATA: {
          return { ...initialState };
+      }
+      case CATEGORY_CLEARMSG: {
+         return { ...state, errorMsg: '' };
       }
       default: {
          return { ...state };

@@ -5,6 +5,7 @@ export const USER_CLEARDATA = 'USER_CLEARDATA';
 export const USER_SETERROR = 'USER_SETERROR';
 export const USER_CLEARERR = 'USER_CLEAREROR';
 export const USER_SETSUCC = 'USER_SETSUCC';
+export const USER_CLEARMSG = 'USER_CLEARMSG';
 
 const initialState = {
    data: {},
@@ -32,6 +33,9 @@ const user = (state = initialState, action) => {
       }
       case USER_CLEARERR: {
          return { ...state, isError: false, errorMsg: '' };
+      }
+      case USER_CLEARMSG: {
+         return { ...state, errorMsg: '', successMsg: '' };
       }
       default: {
          return { ...state };

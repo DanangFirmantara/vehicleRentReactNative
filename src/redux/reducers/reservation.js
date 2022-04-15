@@ -19,6 +19,7 @@ export const RESERVATION_SUCCESSMSG = 'RESERVATION_SUCCESSMSG';
 export const RESERVATION_ERRORMSG = 'RESERVATION_ERRORMSG';
 export const RESERVATION_CLEARERROR = 'RESERVATION_CLEARERROR';
 export const RESERVATION_GETDATA = 'RESERVATION_GETDATA';
+export const RESERVATION_CLEARMSG = 'RESERVATION_CLEARMSG';
 
 const reservation = (state = initialState, action) => {
    switch (action.type) {
@@ -54,6 +55,9 @@ const reservation = (state = initialState, action) => {
       }
       case RESERVATION_CLEARERROR: {
          return { ...state, errorMsg: '' };
+      }
+      case RESERVATION_CLEARMSG: {
+         return { ...state, errorMsg: '', successMsg: '' };
       }
       default: {
          return { ...state };

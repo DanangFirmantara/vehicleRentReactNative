@@ -2,6 +2,7 @@ import React from 'react';
 import HomeAdmin from '../../screens/HomeAdmin';
 import AddNewItem from '../../screens/AddNewItem';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import BackItem from '../../components/BackItem';
 
 const StackHome = createNativeStackNavigator();
 
@@ -15,7 +16,13 @@ const HomeStack = () => {
                headerShown: false,
             }}
          />
-         <StackHome.Screen name="AddNewItem" component={AddNewItem} />
+         <StackHome.Screen
+            name="AddNewItem"
+            component={AddNewItem}
+            options={{
+               header: () => <BackItem>Back</BackItem>,
+            }}
+         />
       </StackHome.Navigator>
    );
 };

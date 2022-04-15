@@ -12,6 +12,7 @@ export const PAYMENT_SETERROR = 'PAYMENT_SETERROR';
 export const PAYMENT_CLEARERROR = 'PAYMENT_CLEARERROR';
 export const PAYMENT_SETSUCCESSMSG = 'PAYMENT_SETSUCCESSMSG';
 export const PAYMENT_CLEARSUCCESSMSG = 'PAYMENT_CLEARSUCCESSMSG';
+export const PAYMENT_CLEARMSG = 'PAYMENT_CLEARMSG';
 
 const payment = (state = initialState, action) => {
    switch (action.type) {
@@ -35,6 +36,9 @@ const payment = (state = initialState, action) => {
       }
       case PAYMENT_GETDATA: {
          return { ...state, data: action.payload };
+      }
+      case PAYMENT_CLEARMSG: {
+         return { ...state, errorMsg: '', successMsg: '' };
       }
       default: {
          return { ...state };
