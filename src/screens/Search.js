@@ -25,7 +25,9 @@ const Search = () => {
    const [search, setSearch] = useState('');
    const navigation = useNavigation();
    const dispatch = useDispatch();
+
    const vehicleRedux = useSelector((state) => state.vehicle);
+   const user = useSelector((state) => state.user);
 
    useEffect(() => {
       if (vehicleRedux.data.length === 0) {
@@ -129,8 +131,14 @@ const Search = () => {
                         my={1}
                         justifyContent={'flex-start'}
                         onPress={() => {
-                           if (item.status === 'Available') {
-                              navigation.navigate('Detail', { id: item.id });
+                           if (user.data.role === 'Admin') {
+                              navigation.navigate('UpdatedVehicle', {
+                                 id: item.id,
+                              });
+                           } else {
+                              if (item.status === 'Available') {
+                                 navigation.navigate('Detail', { id: item.id });
+                              }
                            }
                         }}>
                         <HStack alignItems={'center'}>
