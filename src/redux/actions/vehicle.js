@@ -14,6 +14,8 @@ import {
    VEHICLE_GETDATACATEGORY,
    VEHICLE_SETSUCCESS,
 } from '../reducers/vehicle';
+// import { NativeModules } from 'react-native';
+// const RNFetchBlob = NativeModules.RNFetchBlob;
 
 export const getVehicle = (param = '') => {
    return async (dispatch) => {
@@ -165,7 +167,7 @@ export const addVehicle = (token, dataAdded) => {
                });
             }
          });
-         console.log(dataChange, 'data change');
+         console.log(dataAdded, 'data change');
          const { data } = await RNFetchBlob.fetch(
             'POST',
             `${BACKEND_URL}/vehicles`,
@@ -175,7 +177,7 @@ export const addVehicle = (token, dataAdded) => {
             },
             dataChange,
          );
-         console.log(JSON.parse(data).results[0]);
+         console.log(data);
          dispatch({
             type: VEHICLE_DETAIL,
             payload: JSON.parse(data).results[0],

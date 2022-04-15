@@ -10,6 +10,7 @@ export const LOCATION_CLEARLOADING = 'LOCATION_CLEARLOADING';
 export const LOCATION_SETERROR = 'LOCATION_SETERROR';
 export const LOCATION_CLEARERROR = 'LOCATION_CLEARERROR';
 export const LOCATION_CLEARDATA = 'LOCATION_CLEARDATA';
+export const LOCATION_CLEARMSG = 'LOCATION_CLEARMSG';
 
 const location = (state = initialState, action) => {
    switch (action.type) {
@@ -29,6 +30,9 @@ const location = (state = initialState, action) => {
          return { ...state, errorMsg: action.payload };
       }
       case LOCATION_CLEARERROR: {
+         return { ...state, errorMsg: '' };
+      }
+      case LOCATION_CLEARMSG: {
          return { ...state, errorMsg: '' };
       }
       default: {

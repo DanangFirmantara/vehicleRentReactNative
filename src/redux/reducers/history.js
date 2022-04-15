@@ -9,6 +9,7 @@ export const HISTORY_CLEARLOADING = 'HISTORY_CLEARLOADING';
 export const HISTORY_GETDATA = 'HISTORY_GETDATA';
 export const HISTORY_SETERROR = 'HISTORY_SETERROR';
 export const HISTORY_CLEARERROR = 'HISTORY_CLEARERROR';
+export const HISTORY_CLEARMSG = 'HISTORY_CLEARMSG';
 
 const history = (state = initialState, action) => {
    switch (action.type) {
@@ -26,6 +27,9 @@ const history = (state = initialState, action) => {
       }
       case HISTORY_GETDATA: {
          return { ...state, data: action.payload };
+      }
+      case HISTORY_CLEARMSG: {
+         return { ...state, errorMsg: '' };
       }
       default: {
          return { ...state };

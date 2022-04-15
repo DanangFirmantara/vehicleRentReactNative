@@ -14,6 +14,7 @@ export const AUTH_LOADING = 'AUTH_LOADING';
 export const AUTH_SETERR = 'AUTH_SETERR';
 export const AUTH_CLEARERR = 'AUTH_CLEARERR';
 export const AUTH_CLEARISSUCC = 'AUTH_CLEARISSUCC';
+export const AUTH_CLEARMSG = 'AUTH_CLEARMSG';
 
 const auth = (state = initialState, action) => {
    switch (action.type) {
@@ -40,6 +41,9 @@ const auth = (state = initialState, action) => {
       }
       case AUTH_CLEARERR: {
          return { ...state, isError: false, errorMsg: '' };
+      }
+      case AUTH_CLEARMSG: {
+         return { ...state, errorMsg: '', successMsg: '' };
       }
       default: {
          return { ...state };

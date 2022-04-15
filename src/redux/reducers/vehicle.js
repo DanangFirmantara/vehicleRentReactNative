@@ -20,6 +20,7 @@ export const VEHICLE_SETSUCCESS = 'VEHICLE_SETSUCCESS';
 export const VEHICLE_CLEARSUCCESS = 'VEHICLE_CLEARSUCCESS';
 export const VEHICLE_RESET = 'VEHICLE_RESET';
 export const VEHICLE_DETAIL = 'VEHICLE_DETAIL';
+export const VEHICLE_CLEARMSG = 'VEHICLE_CLEARMSG';
 
 const vehicle = (state = initialState, action) => {
    switch (action.type) {
@@ -58,6 +59,9 @@ const vehicle = (state = initialState, action) => {
       }
       case VEHICLE_RESET: {
          return { ...initialState };
+      }
+      case VEHICLE_CLEARMSG: {
+         return { ...state, errorMsg: '', successMsg: '' };
       }
       default: {
          return { ...state };
