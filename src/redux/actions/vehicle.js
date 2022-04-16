@@ -205,3 +205,73 @@ export const addVehicle = (token, dataAdded) => {
       }
    };
 };
+
+export const updatedVehicle = (token, id, dataAdded) => {
+   return async (dispatch) => {
+      try {
+         dispatch({ type: VEHICLE_SETLOADING });
+         dispatch({ type: VEHICLE_CLEARERR });
+         console.log(token, 'data token');
+         console.log(dataAdded, 'data updated');
+         let dataChange = [];
+         if (dataAdded.image) {
+            dataChange.push({
+               name: 'image',
+               filename: dataAdded.image.fileName,
+               type: dataAdded.image.type,
+               data: RNFetchBlob.wrap(dataAdded.image.uri),
+            });
+         }
+         Object.keys(dataAdded).forEach((item) => {
+            if (item) {
+               if (item === 'price') {
+                  dataChange.push({
+                     name: `${item}`,
+                     data: dataAdded[item],
+                  });
+               } else {
+                  dataChange.push({
+                     name: `${item}`,
+                     data: String(dataAdded[item]),
+                  });
+               }
+            }
+         });
+         console.log(dataAdded, 'data change');
+         const { data } = await RNFetchBlob.fetch(
+            'PATCH',
+            `${BACKEND_URL}/vehicles?id=${id}`,
+            {
+               Authorization: `Bearer ${token}`,
+               'Content-Type': 'multipart/form-data',
+            },
+            dataChange,
+         );
+         console.log(data);
+         dispatch({
+            type: VEHICLE_DETAIL,
+            payload: JSON.parse(data).results[0],
+         });
+         dispatch({
+            type: VEHICLE_SETSUCCESS,
+            payload: JSON.parse(data).message,
+         });
+         console.log(data, 'ini data dari backend bg');
+         dispatch({ type: VEHICLE_CLEARLOADING });
+      } catch (err) {
+         let payload = '';
+         if (err.response) {
+            payload = err.response.data.message;
+         } else {
+            payload = err.message;
+         }
+         dispatch({
+            type: VEHICLE_SETERR,
+            payload: payload,
+         });
+         dispatch({
+            type: VEHICLE_CLEARLOADING,
+         });
+      }
+   };
+};

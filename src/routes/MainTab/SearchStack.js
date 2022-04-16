@@ -9,6 +9,7 @@ import Reservation from '../../screens/Reservation';
 import Link from '../../components/Link';
 import FinishPayment from '../../screens/FinishPayment';
 import PaymentSuccess from '../../screens/PaymentSuccess';
+import UpdatedVehicle from '../../screens/UpdatedVehicle';
 
 const StackSearch = createNativeStackNavigator();
 const SearchStack = () => {
@@ -29,6 +30,13 @@ const SearchStack = () => {
          <StackSearch.Screen
             name="Detail"
             component={Detail}
+            options={{
+               headerShown: false,
+            }}
+         />
+         <StackSearch.Screen
+            name="UpdatedVehicle"
+            component={UpdatedVehicle}
             options={{
                headerShown: false,
             }}
