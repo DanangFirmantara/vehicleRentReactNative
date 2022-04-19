@@ -1,15 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Container from '../components/Container';
 import {
    Image,
-   Input,
    HStack,
    Text,
    FlatList,
    Box,
    ScrollView,
    Button,
+   Select,
+   CheckIcon,
 } from 'native-base';
 import imgHeader from '../assets/image/home.png';
 import ButtonForm from '../components/ButtonForm';
@@ -22,6 +23,8 @@ import { getLocation } from '../redux/actions/location';
 import LoadingScreen from '../components/LoadingScreen';
 
 const HomeAdmin = () => {
+   const [changed, setChanged] = useState({});
+
    const dispatch = useDispatch();
    const auth = useSelector((state) => state.auth);
    const user = useSelector((state) => state.user);
@@ -76,19 +79,86 @@ const HomeAdmin = () => {
                />
                <Container>
                   <HStack space={5} marginTop={3}>
-                     <Input placeholder={'Select Location'} flex={1} />
-                     <Input placeholder={'Car'} width={100} />
+                     <Box
+                        variant="outline"
+                        borderColor={'rgba(196, 196, 196, 1)'}
+                        height={60}
+                        flex={1}>
+                        <Select
+                           selectedValue={changed.location}
+                           accessibilityLabel="Choose Service"
+                           placeholder="Select Location"
+                           fontSize={12}
+                           _selectedItem={{
+                              bg: 'rgba(255, 205, 97, 1)',
+                              endIcon: (
+                                 <CheckIcon
+                                    size="5"
+                                    color={'rgba(57, 57, 57, 1)'}
+                                 />
+                              ),
+                           }}
+                           mt={1}
+                           onValueChange={(itemValue) =>
+                              setChanged({ ...changed, idLocation: itemValue })
+                           }>
+                           {location.data.length !== 0 &&
+                              location.data.map((item) => {
+                                 return (
+                                    <Select.Item
+                                       key={item.id}
+                                       label={item.name}
+                                       value={item.id}
+                                    />
+                                 );
+                              })}
+                        </Select>
+                     </Box>
+                     <Box
+                        variant="outline"
+                        borderColor={'rgba(196, 196, 196, 1)'}
+                        height={60}
+                        width={100}>
+                        <Select
+                           selectedValue={changed.category}
+                           placeholder="Category"
+                           fontSize={12}
+                           _selectedItem={{
+                              bg: 'rgba(255, 205, 97, 1)',
+                              endIcon: (
+                                 <CheckIcon
+                                    size="5"
+                                    color={'rgba(57, 57, 57, 1)'}
+                                 />
+                              ),
+                           }}
+                           mt={1}
+                           onValueChange={(itemValue) =>
+                              setChanged({ ...changed, idCategory: itemValue })
+                           }>
+                           {category.data.length !== 0 &&
+                              category.data.map((item) => {
+                                 return (
+                                    <Select.Item
+                                       key={item.id}
+                                       label={item.name}
+                                       value={item.id}
+                                    />
+                                 );
+                              })}
+                        </Select>
+                     </Box>
                   </HStack>
                   {/* <ButtonForm>Search Vehicle</ButtonForm> */}
                   <Button
                      height={50}
-                     bg={'pallet.1'}
+                     bg={'rgba(204, 236, 25, 1)'}
                      borderRadius={10}
                      marginY={2}
                      alignItems={'center'}
-                     colorScheme={'pallet.3'}>
+                     colorScheme={'rgba(204, 236, 8, 1)'}>
                      <Text
-                        color={'white'}
+                        color={'rgb(96, 54, 1)'}
                         fontWeight={'bold'}
                         fontSize={18}
                         alignItems={'center'}>

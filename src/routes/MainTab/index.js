@@ -1,5 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
+import { Box } from 'native-base';
 import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IonIcon from 'react-native-vector-icons/Ionicons';
@@ -13,17 +14,35 @@ const TabMain = createBottomTabNavigator();
 const MainTab = () => {
    return (
       <NavigationContainer>
-         <TabMain.Navigator>
+         <TabMain.Navigator
+            screenOptions={{
+               tabBarStyle: {
+                  backgroundColor: 'rgba(255, 255, 255, 1)',
+                  marginHorizontal: 20,
+                  marginBottom: 10,
+                  borderRadius: 10,
+                  shadowColor: 'rgba(0, 0, 0, 0.3)',
+               },
+            }}>
             <TabMain.Screen
                name="HomeStack"
                component={HomeStack}
                options={{
                   tabBarShowLabel: false,
-                  tabBarIcon: ({
-                     focused,
-                     color = 'rgba(255, 205, 97, 1)',
-                     size,
-                  }) => <Icon name="home" size={size} color={color} />,
+                  tabBarIcon: ({ focused, size }) => (
+                     <Box
+                        size={size * 1.4}
+                        borderRadius={(size * 1.4) / 2}
+                        bg={focused ? 'pallet.1' : 'pallet.2'}
+                        alignItems={'center'}
+                        justifyContent={'center'}>
+                        <Icon
+                           name="home"
+                           size={size}
+                           color={focused ? 'rgb(96, 54, 1)' : 'rgb(96, 54, 1)'}
+                        />
+                     </Box>
+                  ),
                   headerShown: false,
                }}
             />
@@ -37,7 +56,20 @@ const MainTab = () => {
                      focused,
                      color = 'rgba(255, 205, 97, 1)',
                      size,
-                  }) => <Icon name="search" size={size} color={color} />,
+                  }) => (
+                     <Box
+                        size={size * 1.4}
+                        borderRadius={(size * 1.4) / 2}
+                        bg={focused ? 'pallet.1' : 'pallet.2'}
+                        alignItems={'center'}
+                        justifyContent={'center'}>
+                        <Icon
+                           name="search"
+                           size={size}
+                           color={focused ? 'rgb(96, 54, 1)' : 'rgb(96, 54, 1)'}
+                        />
+                     </Box>
+                  ),
                }}
             />
             <TabMain.Screen
@@ -51,7 +83,18 @@ const MainTab = () => {
                      color = 'rgba(255, 205, 97, 1)',
                      size,
                   }) => (
-                     <IonIcon name="ios-chatbubble" size={size} color={color} />
+                     <Box
+                        size={size * 1.4}
+                        borderRadius={(size * 1.4) / 2}
+                        bg={focused ? 'pallet.1' : 'pallet.2'}
+                        alignItems={'center'}
+                        justifyContent={'center'}>
+                        <IonIcon
+                           name="ios-chatbubble"
+                           size={size}
+                           color={focused ? 'rgb(96, 54, 1)' : 'rgb(96, 54, 1)'}
+                        />
+                     </Box>
                   ),
                }}
             />
@@ -65,7 +108,20 @@ const MainTab = () => {
                      focused,
                      color = 'rgba(255, 205, 97, 1)',
                      size,
-                  }) => <Icon name="user" size={size} color={color} />,
+                  }) => (
+                     <Box
+                        size={size * 1.4}
+                        borderRadius={(size * 1.4) / 2}
+                        bg={focused ? 'pallet.1' : 'pallet.2'}
+                        alignItems={'center'}
+                        justifyContent={'center'}>
+                        <Icon
+                           name="user"
+                           size={size}
+                           color={focused ? 'rgb(96, 54, 1)' : 'rgb(96, 54, 1)'}
+                        />
+                     </Box>
+                  ),
                }}
             />
          </TabMain.Navigator>

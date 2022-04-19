@@ -133,8 +133,8 @@ const Profile = () => {
          </Button>
          <Button
             height={50}
-            bg={'rgba(255, 205, 97, 1)'}
-            color={'rgba(57, 57, 57, 1)'}
+            bg={'pallet.2'}
+            color={'pallet.2'}
             fontWeight="bold"
             fontSize={18}
             borderRadius={10}
