@@ -5,6 +5,7 @@ import SignUp from '../../screens/SignUp';
 import SendCode from '../../screens/SendCode';
 import ResetPassword from '../../screens/ResetPassword';
 import { NavigationContainer } from '@react-navigation/native';
+import BackItem from '../../components/BackItem';
 
 const StackAuth = createNativeStackNavigator();
 const Auth = () => {
@@ -18,21 +19,21 @@ const Auth = () => {
             />
             <StackAuth.Screen
                options={{
-                  headerTitle: 'Sign Up',
+                  header: () => <BackItem>Back</BackItem>,
                }}
                name="SignUp"
                component={SignUp}
             />
             <StackAuth.Screen
                options={{
-                  headerTitle: 'Send Code',
+                  header: () => <BackItem>Back</BackItem>,
                }}
                name="SendCode"
                component={SendCode}
             />
             <StackAuth.Screen
                options={{
-                  headerTitle: 'Reset Password',
+                  header: () => <BackItem>Back</BackItem>,
                }}
                name="ResetPassword"
                component={ResetPassword}

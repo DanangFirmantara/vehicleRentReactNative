@@ -38,7 +38,7 @@ const OrderDetail = () => {
             token,
          ),
       );
-      navigation.navigate('FinishPayment');
+      navigation.replace('FinishPayment');
    };
    return (
       <Container>
@@ -94,14 +94,12 @@ const OrderDetail = () => {
 
          <Button
             height={60}
-            bg={'rgba(255, 205, 97, 1)'}
+            bg={'rgba(204, 236, 25, 1)'}
+            colorScheme={'rgba(204, 236, 8, 1)'}
             borderRadius={10}
             marginY={2}
             onPress={onPayment}>
-            <NvText
-               color={'rgba(57, 57, 57, 1)'}
-               fontWeight={'bold'}
-               fontSize={18}>
+            <NvText color={'rgb(96, 54, 1)'} fontWeight={'bold'} fontSize={18}>
                Get Payment Code
             </NvText>
          </Button>

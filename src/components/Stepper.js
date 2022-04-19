@@ -55,7 +55,10 @@ const Stepper = ({ currentlyActive, count, weight = ITEM_WH }) => {
                         end={{ x: 1, y: 0 }}
                         colors={
                            currentlyActive - 1 >= i + 1
-                              ? ['#F8A170', '#FFCD61']
+                              ? [
+                                   'rgba(204, 236, 5, 1)',
+                                   'rgba(204, 236, 100, 1)',
+                                ]
                               : ['#DFDEDE', '#DFDEDE']
                         }
                         style={styles.line}
@@ -71,7 +74,7 @@ const Stepper = ({ currentlyActive, count, weight = ITEM_WH }) => {
                      end={{ x: 1, y: 0 }}
                      colors={
                         currentlyActive >= i + 1
-                           ? ['#F8A170', '#FFCD61']
+                           ? ['rgba(204, 236, 5, 1)', 'rgba(204, 236, 100, 1)']
                            : ['#DFDEDE', '#DFDEDE']
                      }
                      style={styles.item}>

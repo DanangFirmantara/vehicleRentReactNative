@@ -1,3 +1,4 @@
+import Clipboard from '@react-native-clipboard/clipboard';
 import Container from '../components/Container';
 import React from 'react';
 import {
@@ -31,7 +32,12 @@ const FinishPayment = () => {
             auth.token,
          ),
       );
-      navigation.navigate('PaymentSuccess');
+      navigation.replace('PaymentSuccess');
+   };
+   const copyToClipboard = () => {
+      Clipboard.setString(
+         payment.data.codePayment + reservation.data.bookedCode,
+      );
    };
    return (
       <Container>
@@ -93,12 +99,14 @@ const FinishPayment = () => {
 
                      <Button
                         height={42}
-                        bg={'rgba(255, 205, 97, 1)'}
+                        bg={'rgba(204, 236, 25, 1)'}
+                        colorScheme={'rgba(204, 236, 8, 1)'}
                         borderRadius={10}
                         width={'100%'}
-                        marginY={2}>
+                        marginY={2}
+                        onPress={copyToClipboard}>
                         <Text
-                           color={'rgba(57, 57, 57, 1)'}
+                           color={'rgb(96, 54, 1)'}
                            fontWeight={'bold'}
                            fontSize={12}>
                            Copy Payment & Booking Code
@@ -133,12 +141,13 @@ const FinishPayment = () => {
                </Box>
                <Button
                   height={60}
-                  bg={'rgba(255, 205, 97, 1)'}
+                  bg={'rgba(204, 236, 25, 1)'}
+                  colorScheme={'rgba(204, 236, 8, 1)'}
                   borderRadius={10}
                   marginY={2}
                   onPress={onFinishPayment}>
                   <Text
-                     color={'rgba(57, 57, 57, 1)'}
+                     color={'rgb(96, 54, 1)'}
                      fontWeight={'bold'}
                      fontSize={18}>
                      Finish Payment

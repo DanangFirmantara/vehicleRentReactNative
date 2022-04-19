@@ -7,7 +7,15 @@ const ChatStack = createMaterialTopTabNavigator();
 
 const StackChat = () => {
    return (
-      <ChatStack.Navigator>
+      <ChatStack.Navigator
+         screenOptions={{
+            tabBarStyle: {
+               backgroundColor: 'rgba(255, 255, 255, 1)',
+               borderBottomRightRadius: 20,
+               borderBottomLeftRadius: 20,
+               shadowColor: 'rgba(0, 0, 0, 0.3)',
+            },
+         }}>
          <ChatStack.Screen name="Chat" component={Chat} />
          <ChatStack.Screen name="HistoryOrder" component={History} />
       </ChatStack.Navigator>

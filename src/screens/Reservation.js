@@ -29,7 +29,7 @@ const Reservation = () => {
       dispatch(
          postReservation(idCard, name, lastName, contact, email, service),
       );
-      navigation.navigate('OrderDetail');
+      navigation.replace('OrderDetail');
    };
 
    return (
@@ -146,14 +146,12 @@ const Reservation = () => {
          </VStack>
          <Button
             height={60}
-            bg={'rgba(255, 205, 97, 1)'}
+            bg={'rgba(204, 236, 25, 1)'}
+            colorScheme={'rgba(204, 236, 8, 1)'}
             borderRadius={10}
             marginY={2}
             onPress={onOrder}>
-            <NvText
-               color={'rgba(57, 57, 57, 1)'}
-               fontWeight={'bold'}
-               fontSize={18}>
+            <NvText color={'rgb(96, 54, 1)'} fontWeight={'bold'} fontSize={18}>
                See Order Details
             </NvText>
          </Button>

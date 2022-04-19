@@ -120,27 +120,28 @@ const Profile = () => {
          </Button>
          <Button
             height={50}
-            bg={'rgba(255, 205, 97, 1)'}
-            color={'rgba(57, 57, 57, 1)'}
+            bg={'rgb(96, 54, 1)'}
             fontWeight="bold"
             fontSize={18}
             borderRadius={10}
             marginY={2}
-            onPress={onResetVehicle}>
-            <Text fontSize={17} fontWeight={'bold'}>
+            onPress={onResetVehicle}
+            colorScheme={'rgb(96, 54, 30)'}>
+            <Text
+               fontSize={17}
+               fontWeight={'bold'}
+               color={'rgba(255, 255, 255,1)'}>
                Reset Vehicle
             </Text>
          </Button>
          <Button
             height={50}
-            bg={'pallet.2'}
-            color={'pallet.2'}
-            fontWeight="bold"
-            fontSize={18}
+            bg={'rgba(204, 236, 25, 1)'}
             borderRadius={10}
             marginY={2}
-            onPress={onLogout}>
-            <Text fontSize={17} fontWeight={'bold'}>
+            onPress={onLogout}
+            colorScheme={'rgba(204, 236, 8, 1)'}>
+            <Text fontSize={17} fontWeight={'bold'} color={'rgb(96, 54, 1)'}>
                Logout
             </Text>
          </Button>

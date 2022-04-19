@@ -9,11 +9,11 @@ import {
    VStack,
 } from 'native-base';
 import ImgVehicle from '../assets/image/vehicle.png';
-import { useNavigation } from '@react-navigation/native';
+// import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 
 const PaymentSuccess = () => {
-   const navigation = useNavigation();
+   // const navigation = useNavigation();
    const payment = useSelector((state) => state.payment);
    const vehicle = useSelector((state) => state.vehicle);
    const reservation = useSelector((state) => state.reservation);
@@ -24,7 +24,7 @@ const PaymentSuccess = () => {
    const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
 
    const onPayment = () => {
-      navigation.navigate('FinishPayment');
+      console.log(payment);
    };
    return (
       <Container>
@@ -70,14 +70,12 @@ const PaymentSuccess = () => {
 
          <Button
             height={60}
-            bg={'rgba(255, 205, 97, 1)'}
+            bg={'rgba(204, 236, 25, 1)'}
+            colorScheme={'rgba(204, 236, 8, 1)'}
             borderRadius={10}
             marginY={2}
             onPress={onPayment}>
-            <NvText
-               color={'rgba(57, 57, 57, 1)'}
-               fontWeight={'bold'}
-               fontSize={18}>
+            <NvText color={'rgb(96, 54, 1)'} fontWeight={'bold'} fontSize={18}>
                Total : {payment.data?.total}
             </NvText>
          </Button>
