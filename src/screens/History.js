@@ -88,10 +88,7 @@ const History = () => {
                                  source={
                                     item.image
                                        ? {
-                                            uri: item.image.replace(
-                                               'http://localhost:5000',
-                                               BACKEND_URL,
-                                            ),
+                                            uri: item.image,
                                          }
                                        : imgVehicle
                                  }
